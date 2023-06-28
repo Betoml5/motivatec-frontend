@@ -3,10 +3,8 @@ import { UserClient } from "./axios/index.js";
 export const getStudentsAPI = async () => {
   try {
     const response = await UserClient.get("/student");
-    console.log(response.data);
     return response.data.body;
   } catch (error) {
-    console.log("Error", error);
     throw new Error(error);
   }
 };
@@ -16,7 +14,6 @@ export const getStudentAPI = async (id) => {
     const response = await UserClient.get(`/student/${id}`);
     return response.data.body;
   } catch (error) {
-    console.log("error", error);
     throw new Error(error);
   }
 };

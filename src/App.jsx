@@ -8,8 +8,10 @@ import Survey from "./screens/teacher/Survey";
 import Students from "./screens/teacher/students/Students";
 import Register from "./screens/teacher/students/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
+import initAxiosInterceptors from "./services/axios/auth-helpers";
 
 function App() {
+  initAxiosInterceptors();
   return (
     <>
       <Routes>

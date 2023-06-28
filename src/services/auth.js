@@ -8,7 +8,6 @@ export const signinAPI = async (email, password) => {
     });
     return response.data;
   } catch (error) {
-    console.log("error auth", error);
     throw new Error(error);
   }
 };

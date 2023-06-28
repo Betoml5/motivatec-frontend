@@ -6,6 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import { AuthContextProvider } from "./context/AuthContext";
 import { QueryClient } from "react-query";
 import { QueryClientProvider } from "react-query";
+import { UserContextProvider } from "./context/UserContext.jsx";
 
 const queryClient = new QueryClient();
 
@@ -14,7 +15,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
         <AuthContextProvider>
-          <App />
+          <UserContextProvider>
+            <App />
+          </UserContextProvider>
         </AuthContextProvider>
       </QueryClientProvider>
     </BrowserRouter>

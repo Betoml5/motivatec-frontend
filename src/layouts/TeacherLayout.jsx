@@ -10,8 +10,10 @@ import {
 import { PiStudentLight } from "react-icons/pi";
 import { CiSettings } from "react-icons/ci";
 import { useState } from "react";
+import useAuth from "../hooks/useAuth";
 
 const TeacherLayout = () => {
+  const { signout } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -50,7 +52,7 @@ const TeacherLayout = () => {
           <CiSettings className="sidebar__item-icon" size={30} />
           Mi cuenta
         </Link>
-        <button className="sidebar__item">
+        <button onClick={() => signout()} className="sidebar__item">
           <AiOutlineLogout className="sidebar__item-icon" size={30} />
           Cerrar sesión
         </button>

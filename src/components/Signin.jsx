@@ -10,7 +10,6 @@ const Signin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await signin(email, password);
-    console.log(response);
   };
 
   return (

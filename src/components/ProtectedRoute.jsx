@@ -1,4 +1,5 @@
 import { Navigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
 function ProtectedRoute({ element: Element, allowedRoles, fallbackPath }) {
   const currentUserRole = "teacher"; // TODO: get this from context
@@ -8,5 +9,11 @@ function ProtectedRoute({ element: Element, allowedRoles, fallbackPath }) {
 
   return <Element />;
 }
+
+ProtectedRoute.propTypes = {
+  element: PropTypes.elementType.isRequired,
+  allowedRoles: PropTypes.arrayOf(PropTypes.string).isRequired,
+  fallbackPath: PropTypes.string.isRequired,
+};
 
 export default ProtectedRoute;

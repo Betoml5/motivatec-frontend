@@ -5,6 +5,7 @@ export const AuthClient = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials: true,
 });
 
 export const UserClient = axios.create({
@@ -12,4 +13,5 @@ export const UserClient = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials: true,
 });

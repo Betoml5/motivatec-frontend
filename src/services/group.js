@@ -3,10 +3,8 @@ import { UserClient } from "./axios/index.js";
 export const getGroupsAPI = async () => {
   try {
     const response = await UserClient.get("/group");
-    console.log(response);
     return response.data.body;
   } catch (error) {
-    console.log("error from axios", error);
     throw new Error(error);
   }
 };
