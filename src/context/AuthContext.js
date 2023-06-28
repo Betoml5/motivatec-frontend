@@ -1,7 +1,7 @@
 import { createContext, useState } from "react";
 import { signinAPI } from "../services/auth";
 
-export const AuthContext = createContext();
+export const AuthContext = createContext({});
 
 // eslint-disable-next-line react/prop-types
 export const AuthContextProvider = ({ children }) => {
