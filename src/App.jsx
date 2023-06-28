@@ -1,5 +1,6 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
+
 import Dashboard from "./screens/teacher/Dashboard";
 import TeacherLayout from "./layouts/TeacherLayout";
 import Home from "./screens/Home";
@@ -8,7 +9,11 @@ import Survey from "./screens/teacher/Survey";
 import Students from "./screens/teacher/students/Students";
 import Register from "./screens/teacher/students/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { default as SurveyForm } from "./screens/survey/Survey";
+import { default as StudentDashboard } from "./screens/student/Dashboard";
+
 import initAxiosInterceptors from "./services/axios/auth-helpers";
+import StudentLayout from "./layouts/StudentLayout";
 
 function App() {
   initAxiosInterceptors();
@@ -17,7 +22,9 @@ function App() {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route path="" element={<Home />} />
+          <Route path="survey" element={<SurveyForm />} />
         </Route>
+
         <Route
           path="/teacher"
           element={
@@ -32,6 +39,19 @@ function App() {
           <Route path="survey" element={<Survey />} />
           <Route path="students" element={<Students />} />
           <Route path="students/register" element={<Register />} />
+        </Route>
+
+        <Route
+          path="/student"
+          element={
+            <ProtectedRoute
+              element={StudentLayout}
+              allowedRoles={["student"]}
+              fallbackPath={"/"}
+            />
+          }
+        >
+          <Route path="" element={<StudentDashboard />} />
         </Route>
       </Routes>
     </>

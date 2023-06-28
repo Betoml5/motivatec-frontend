@@ -2,7 +2,7 @@ import { Navigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
 function ProtectedRoute({ element: Element, allowedRoles, fallbackPath }) {
-  const currentUserRole = "teacher"; // TODO: get this from context
+  const currentUserRole = "student"; // TODO: get this from context
   if (!allowedRoles.includes(currentUserRole)) {
     return <Navigate to={fallbackPath} replace />;
   }

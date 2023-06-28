@@ -9,10 +9,9 @@ const Survey = () => {
 
   const copyToClipboard = async (e) => {
     e.preventDefault();
-    const router = window.location.hostname;
     try {
       await navigator.clipboard.writeText(
-        `${router}/survey?groupId=${groupId}&teacherId=1`
+        `http://127.0.0.1:5173/survey?groupId=${groupId}&teacherId=1`
       );
       setCopied(true);
     } catch (error) {
