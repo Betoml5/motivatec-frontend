@@ -33,7 +33,7 @@ const StudentLayout = () => {
           <MdOutlineForum className="sidebar__item-icon" size={30} />
           Foro
         </Link>
-        <Link className="sidebar__item" to="/teacher/settings">
+        <Link className="sidebar__item" to="/student/settings">
           <CiSettings className="sidebar__item-icon" size={30} />
           Mi cuenta
         </Link>

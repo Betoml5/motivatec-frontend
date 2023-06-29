@@ -16,19 +16,17 @@ import initAxiosInterceptors from "./services/axios/auth-helpers";
 import StudentLayout from "./layouts/StudentLayout";
 import Posts from "./screens/forum/Posts";
 import ForumLayout from "./layouts/ForumLayout";
+import Create from "./screens/forum/Create";
 
 function App() {
   initAxiosInterceptors();
+
   return (
     <>
       <Routes>
-        <Route path="/" element={<MainLayout />}>
-          <Route path="" element={<Home />} />
-          <Route path="survey" element={<SurveyForm />} />
-        </Route>
-
         <Route path="/forum" element={<ForumLayout />}>
           <Route path="" element={<Posts />} />
+          <Route path="create" element={<Create />} />
         </Route>
 
         <Route
@@ -58,7 +56,11 @@ function App() {
           }
         >
           <Route path="" element={<StudentDashboard />} />
-          <Route path="forum/create" />
+        </Route>
+
+        <Route path="/" element={<MainLayout />}>
+          <Route path="" element={<Home />} />
+          <Route path="survey" element={<SurveyForm />} />
         </Route>
       </Routes>
     </>

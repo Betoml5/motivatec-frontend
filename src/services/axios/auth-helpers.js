@@ -4,7 +4,6 @@ import { getAccessToken, setAccessToken } from "../accessToken";
 import dayjs from "dayjs";
 
 function initAxiosInterceptors() {
-  console.log("init axios interceptors");
   UserClient.interceptors.request.use(
     async (request) => {
       request.headers = {
