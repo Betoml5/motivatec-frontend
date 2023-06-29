@@ -4,6 +4,7 @@ import { getAccessToken, setAccessToken } from "../accessToken";
 import dayjs from "dayjs";
 
 function initAxiosInterceptors() {
+  console.log("init axios interceptors");
   UserClient.interceptors.request.use(
     async (request) => {
       request.headers = {
@@ -15,6 +16,9 @@ function initAxiosInterceptors() {
       if (!getAccessToken()) {
         try {
           const response = await AuthClient.post("/auth/refresh-token");
+          if (response.status !== 200) {
+            return request;
+          }
           setAccessToken(response.data.body.token);
           request.headers.Authorization = `Bearer ${response.data.body.token}`;
         } catch (error) {

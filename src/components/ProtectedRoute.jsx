@@ -1,9 +1,15 @@
-import { Navigate } from "react-router-dom";
 import PropTypes from "prop-types";
+import { Navigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 function ProtectedRoute({ element: Element, allowedRoles, fallbackPath }) {
-  const currentUserRole = "student"; // TODO: get this from context
-  if (!allowedRoles.includes(currentUserRole)) {
+  const { role, isAuth } = useAuth();
+
+  if (!allowedRoles.includes(role)) {
+    return <Navigate to={fallbackPath} replace />;
+  }
+
+  if (!isAuth) {
     return <Navigate to={fallbackPath} replace />;
   }
 

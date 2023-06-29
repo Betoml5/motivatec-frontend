@@ -13,7 +13,7 @@ import { useState } from "react";
 import useAuth from "../hooks/useAuth";
 
 const TeacherLayout = () => {
-  const { signout } = useAuth();
+  const { signout, user } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -22,7 +22,7 @@ const TeacherLayout = () => {
         <button className="mr-4" onClick={() => setSidebarOpen(!sidebarOpen)}>
           <AiOutlineMenu className="sidebar__item-icon" size={30} />
         </button>
-        <h3>Maestro</h3>
+        <h3>Maestro - {user.name}</h3>
       </header>
       <nav
         className={`flex flex-col sidebar  ${

@@ -14,6 +14,8 @@ import { default as StudentDashboard } from "./screens/student/Dashboard";
 
 import initAxiosInterceptors from "./services/axios/auth-helpers";
 import StudentLayout from "./layouts/StudentLayout";
+import Posts from "./screens/forum/Posts";
+import ForumLayout from "./layouts/ForumLayout";
 
 function App() {
   initAxiosInterceptors();
@@ -23,6 +25,10 @@ function App() {
         <Route path="/" element={<MainLayout />}>
           <Route path="" element={<Home />} />
           <Route path="survey" element={<SurveyForm />} />
+        </Route>
+
+        <Route path="/forum" element={<ForumLayout />}>
+          <Route path="" element={<Posts />} />
         </Route>
 
         <Route
@@ -52,6 +58,7 @@ function App() {
           }
         >
           <Route path="" element={<StudentDashboard />} />
+          <Route path="forum/create" />
         </Route>
       </Routes>
     </>

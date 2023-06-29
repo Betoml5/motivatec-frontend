@@ -29,7 +29,7 @@ const StudentLayout = () => {
           <AiOutlineHome className="sidebar__item-icon" size={30} />
           Inicio
         </Link>
-        <Link className="sidebar__item" to="/student/forum">
+        <Link className="sidebar__item" to="/forum">
           <MdOutlineForum className="sidebar__item-icon" size={30} />
           Foro
         </Link>

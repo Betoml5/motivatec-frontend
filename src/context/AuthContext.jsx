@@ -1,15 +1,16 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { signinAPI } from "../services/auth";
 import { useNavigate } from "react-router-dom";
 import { getAccessToken, setAccessToken } from "../services/accessToken";
+import { AuthClient } from "../services/axios";
 
 export const AuthContext = createContext({});
 
 // eslint-disable-next-line react/prop-types
 export const AuthContextProvider = ({ children }) => {
   const [isAuth, setIsAuth] = useState(false);
-  const [role, setRole] = useState(""); // ["admin", "teacher", "student"
-
+  const [role, setRole] = useState("");
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   const signin = async (email, password) => {
@@ -19,6 +20,8 @@ export const AuthContextProvider = ({ children }) => {
         response.body.payload.entity.user.userType.type.toLowerCase();
       setRole(userType);
       setAccessToken(response.body.token);
+      setUser(response.body.payload.entity);
+      setIsAuth(true);
       switch (userType) {
         case "admin":
           navigate("/admin");
@@ -40,7 +43,40 @@ export const AuthContextProvider = ({ children }) => {
   const signout = () => {
     setRole("");
     navigate("/");
+    setUser(null);
   };
+
+  const getCurrentUser = async () => {
+    try {
+      const response = await AuthClient.post("/user/auth/current");
+      console.log("RESPONSE FROM AUTH CONTEXT", response.data);
+      if (response.status !== 200) {
+        throw new Error("Not authorized");
+      }
+    } catch (error) {
+      signout();
+    }
+  };
+
+  const getToken = async () => {
+    try {
+      const response = await AuthClient.post("/auth/refresh-token");
+      console.log(response.data);
+      if (response.status !== 200) {
+        throw new Error("Not authorized");
+      }
+      setAccessToken(response.data.body.token);
+      const currentUser = await AuthClient.post("/user/auth/current");
+      console.log("CURRENT USER", currentUser.data);
+    } catch (error) {
+      signout();
+    }
+  };
+
+  useEffect(() => {
+    getToken();
+    getCurrentUser();
+  }, []);
 
   return (
     <AuthContext.Provider
@@ -50,6 +86,7 @@ export const AuthContextProvider = ({ children }) => {
         setIsAuth,
         role,
         signout,
+        user,
       }}
     >
       {children}
