@@ -17,6 +17,7 @@ import StudentLayout from "./layouts/StudentLayout";
 import Posts from "./screens/forum/Posts";
 import ForumLayout from "./layouts/ForumLayout";
 import Create from "./screens/forum/Create";
+import PostDetails from "./components/forum/PostDetails";
 
 function App() {
   initAxiosInterceptors();
@@ -27,6 +28,7 @@ function App() {
         <Route path="/forum" element={<ForumLayout />}>
           <Route path="" element={<Posts />} />
           <Route path="create" element={<Create />} />
+          <Route path="post/:id" element={<PostDetails />} />
         </Route>
 
         <Route

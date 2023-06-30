@@ -1,6 +1,10 @@
 @tailwind base;
 @tailwind components;
 
+html {
+  background-color: #f6f6f6;
+}
+
 @layer components {
   .container {
     @apply max-w-7xl mx-auto px-4;
@@ -36,6 +40,26 @@
 
   .form__student {
     @apply flex flex-col;
+  }
+
+  .post {
+    @apply rounded-md bg-white  text-black p-4 my-2 max-h-60;
+  }
+
+  .post__user-data {
+    @apply flex items-center ml-4 mt-4;
+  }
+
+  .post__content {
+    @apply ml-6;
+  }
+
+  .post__content-text {
+    @apply h-32;
+  }
+
+  .post__user-date-time {
+    @apply flex items-center mx-4 text-gray-400;
   }
 }
 
