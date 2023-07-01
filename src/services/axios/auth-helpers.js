@@ -16,7 +16,7 @@ function initAxiosInterceptors() {
         try {
           const response = await AuthClient.post("/auth/refresh-token");
           if (response.status !== 200) {
-            return request;
+            throw new Error(response.data.message);
           }
           setAccessToken(response.data.body.token);
           request.headers.Authorization = `Bearer ${response.data.body.token}`;

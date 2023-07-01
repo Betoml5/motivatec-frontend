@@ -14,7 +14,7 @@ const ForumLayout = () => {
   const role = user?.user?.userType?.type.toLowerCase();
 
   return (
-    <div>
+    <div className="relative z-50">
       <header className="header">
         <button className="mr-4" onClick={() => setSidebarOpen(!sidebarOpen)}>
           <AiOutlineMenu className="sidebar__item-icon" size={30} />

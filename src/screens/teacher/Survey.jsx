@@ -20,7 +20,7 @@ const Survey = () => {
   };
 
   return (
-    <div className="m-4 p-4 shadow-xl">
+    <div className="max-w-2xl mx-auto m-4 p-4 shadow-xl">
       <form className="flex flex-col">
         <label className="label" htmlFor="groupId">
           Grupo

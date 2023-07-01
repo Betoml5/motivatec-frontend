@@ -1,9 +1,10 @@
 import { Outlet, Link } from "react-router-dom";
+import { useState } from "react";
+
 import { AiOutlineMenu, AiOutlineHome, AiOutlineLogout } from "react-icons/ai";
 import { MdOutlineForum } from "react-icons/md";
 import { CiSettings } from "react-icons/ci";
-import { useState } from "react";
-
+import { RiSurveyLine } from "react-icons/ri";
 import useAuth from "../hooks/useAuth";
 
 const StudentLayout = () => {
@@ -36,6 +37,10 @@ const StudentLayout = () => {
         <Link className="sidebar__item" to="/student/settings">
           <CiSettings className="sidebar__item-icon" size={30} />
           Mi cuenta
+        </Link>
+        <Link className="sidebar__item" to="/student/survey">
+          <RiSurveyLine className="sidebar__item-icon" size={30} />
+          Encuestas
         </Link>
         <button onClick={() => signout()} className="sidebar__item">
           <AiOutlineLogout className="sidebar__item-icon" size={30} />

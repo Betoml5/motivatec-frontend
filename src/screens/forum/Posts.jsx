@@ -8,10 +8,11 @@ import { Link } from "react-router-dom";
 const Posts = () => {
   const { data, isLoading, error } = useQuery("posts", getPostsAPI);
 
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Something went wrong</div>;
+
   return (
     <div className="bg-[#f6f6f6] max-w-6xl mx-auto p-4">
-      {isLoading && <div>Loading...</div>}
-      {error && <div>Something went wrong</div>}
       {data &&
         data?.map((post) => (
           <div className="post" key={post.id}>

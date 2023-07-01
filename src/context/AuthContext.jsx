@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { signinAPI } from "../services/auth";
+import { signinAPI, signoutAPI } from "../services/auth";
 import { useNavigate } from "react-router-dom";
 import { setAccessToken } from "../services/accessToken";
 import { UserClient } from "../services/axios";
@@ -15,6 +15,9 @@ export const AuthContextProvider = ({ children }) => {
   const signin = async (email, password) => {
     try {
       const response = await signinAPI(email, password);
+      if (response.status !== 200) {
+        throw new Error("Not authorized");
+      }
       const userType =
         response.body.payload.entity.user.userType.type.toLowerCase();
       setAccessToken(response.body.token);
@@ -61,7 +64,7 @@ export const AuthContextProvider = ({ children }) => {
           break;
       }
     } catch (error) {
-      signout();
+      throw new Error(error);
     }
   };
 
@@ -73,18 +76,24 @@ export const AuthContextProvider = ({ children }) => {
       }
       setAccessToken(response.data.body.token);
     } catch (error) {
-      signout();
+      throw new Error(error);
     }
   };
 
-  const signout = () => {
+  const signout = async () => {
     navigate("/");
     setUser(null);
+    setAccessToken(null);
+    await signoutAPI();
   };
 
   useEffect(() => {
     getToken();
     getCurrentUser();
+
+    return () => {
+      setUser(null);
+    };
   }, []);
 
   return (
