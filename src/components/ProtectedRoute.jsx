@@ -7,13 +7,12 @@ function ProtectedRoute({ element: Element, allowedRoles, fallbackPath }) {
   const { user } = useAuth();
   const role = user?.user?.userType?.type.toLowerCase();
 
-  if (!user) {
-    return <Spinner />;
-  }
+  if (!role) return <Spinner />;
 
-  if (!allowedRoles.includes(role)) {
+  if (!user) return <Spinner />;
+
+  if (!allowedRoles.includes(role))
     return <Navigate to={fallbackPath} replace />;
-  }
 
   return <Element />;
 }

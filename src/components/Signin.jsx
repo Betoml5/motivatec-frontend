@@ -11,12 +11,12 @@ const Signin = () => {
   console.log(config);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await signin(email, password);
+    await signin(email, password);
   };
 
   return (
     <div className="max-w-2xl mx-auto bg-white rounded-md mt-10 p-4">
-      <h1>{config[0].schoolName}</h1>
+      {/* <h1>{config[0].schoolName}</h1> */}
       <form onSubmit={handleSubmit} className="flex flex-col p-4  ">
         <label htmlFor="email">Correo electronico</label>
         <input

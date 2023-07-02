@@ -19,7 +19,7 @@ const PostDetails = () => {
   return (
     <div>
       <div className="flex flex-col justify-center w-full h-60 -z-50 bg-blog bg-cover p-4 lg:p-10">
-        <h1 className=" bottom-10 left-5 text-white font-semibold text-4xl ">
+        <h1 className=" bottom-10 left-5 text-white font-semibold text-3xl ">
           {post.title}
         </h1>
         <div className="flex items-center mt-6">
@@ -35,7 +35,7 @@ const PostDetails = () => {
         </div>
       </div>
 
-      <div className="text-lg max-w-6xl mx-auto mt-6 mb-10">
+      <div className="text-lg max-w-4xl  mx-auto mt-6 mb-10 leading-8">
         <p>{post.content}</p>
       </div>
     </div>

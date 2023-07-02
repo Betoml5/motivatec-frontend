@@ -1,6 +1,8 @@
 import { DateTime } from "luxon";
 
 const calculateTimeSinceCreation = (date) => {
+
+  
   if (!date) {
     return "No hay fecha";
   }
@@ -27,6 +29,7 @@ const calculateTimeSinceCreation = (date) => {
   } else {
     return Math.floor(diff.as("years")) + " años";
   }
+  
 };
 
 export { calculateTimeSinceCreation };

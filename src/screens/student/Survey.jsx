@@ -1,5 +1,4 @@
 import { questions } from "../../utils/questions";
-import { replyTypes } from "../../utils/replyType";
 
 import Questions from "../../containers/Questions";
 import { useState } from "react";
@@ -35,11 +34,8 @@ const Survey = () => {
 
   return (
     <div>
-      <h1>Survey</h1>
-
       <Questions
         questions={questions}
-        replyTypes={replyTypes}
         onSelect={onSelect}
         repliedQuestions={repliedQuestions}
         setRepliedQuestions={setRepliedQuestions}
