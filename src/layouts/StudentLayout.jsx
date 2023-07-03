@@ -34,13 +34,13 @@ const StudentLayout = () => {
           <MdOutlineForum className="sidebar__item-icon" size={30} />
           Foro
         </Link>
-        <Link className="sidebar__item" to="/student/settings">
-          <CiSettings className="sidebar__item-icon" size={30} />
-          Mi cuenta
-        </Link>
         <Link className="sidebar__item" to="/student/survey">
           <RiSurveyLine className="sidebar__item-icon" size={30} />
           Encuestas
+        </Link>
+        <Link className="sidebar__item" to="/student/settings">
+          <CiSettings className="sidebar__item-icon" size={30} />
+          Mi cuenta
         </Link>
         <button onClick={() => signout()} className="sidebar__item">
           <AiOutlineLogout className="sidebar__item-icon" size={30} />

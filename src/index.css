@@ -9,6 +9,10 @@ html {
 }
 
 @layer components {
+  .form {
+    @apply flex flex-col p-4;
+  }
+
   .container {
     @apply max-w-7xl mx-auto px-4;
   }

@@ -1,9 +1,14 @@
 import { Outlet } from "react-router-dom";
 import { useState } from "react";
-import { AiOutlineMenu, AiOutlineLogout, AiOutlineLogin } from "react-icons/ai";
+import {
+  AiOutlineMenu,
+  AiOutlineLogout,
+  AiOutlineLogin,
+  AiOutlineHome,
+} from "react-icons/ai";
 import { MdOutlineForum } from "react-icons/md";
 import { IoCreateOutline } from "react-icons/io5";
-import { LuLayoutDashboard } from "react-icons/lu";
+
 import { Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
@@ -29,7 +34,26 @@ const ForumLayout = () => {
         <button className="mb-10" onClick={() => setSidebarOpen(!sidebarOpen)}>
           <AiOutlineMenu className="sidebar__item-icon" size={30} />
         </button>
+        {role === "admin" && (
+          <Link className="sidebar__item" to="/admin">
+            <AiOutlineHome className="sidebar__item-icon" size={30} />
+            Dashboard
+          </Link>
+        )}
 
+        {role === "teacher" && (
+          <Link className="sidebar__item" to="/teacher">
+            <AiOutlineHome className="sidebar__item-icon" size={30} />
+            Dashboard
+          </Link>
+        )}
+
+        {role === "student" && (
+          <Link className="sidebar__item" to="/student">
+            <AiOutlineHome className="sidebar__item-icon" size={30} />
+            Inicio
+          </Link>
+        )}
         <Link className="sidebar__item" to="/forum">
           <MdOutlineForum className="sidebar__item-icon" size={30} />
           Foro
@@ -40,27 +64,6 @@ const ForumLayout = () => {
         </Link>
 
         {/* Make a condition if role is student or teacher or admin */}
-
-        {role === "admin" && (
-          <Link className="sidebar__item" to="/admin">
-            <LuLayoutDashboard className="sidebar__item-icon" size={30} />
-            Dashboard
-          </Link>
-        )}
-
-        {role === "teacher" && (
-          <Link className="sidebar__item" to="/teacher">
-            <LuLayoutDashboard className="sidebar__item-icon" size={30} />
-            Dashboard
-          </Link>
-        )}
-
-        {role === "student" && (
-          <Link className="sidebar__item" to="/student">
-            <LuLayoutDashboard className="sidebar__item-icon" size={30} />
-            Dashboard
-          </Link>
-        )}
 
         {user ? (
           <button onClick={() => signout()} className="sidebar__item">

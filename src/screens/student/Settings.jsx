@@ -1,5 +1,34 @@
+import { Link } from "react-router-dom";
+import useUser from "../../hooks/useUser";
+import Spinner from "../loading/Spinner";
+import { PiStudentThin } from "react-icons/pi";
+
 const Settings = () => {
-  return <div>Settings</div>;
+  const { user } = useUser();
+
+  console.log(user);
+  if (!user) return <Spinner />;
+
+  return (
+    <div className="max-w-xl mx-auto  my-4">
+      <div className="flex flex-col  p-4 py-20 bg-white mx-4 rounded-md ">
+        <div className="w-16 h-16 shadow rounded-full p-4 self-center">
+          <PiStudentThin size={50} className="w-full h-full" />
+        </div>
+        <Link
+          to="/edit"
+          className="text-hardBlue underline text-center text-sm my-2"
+        >
+          Editar mi perfil
+        </Link>
+        <p className="font-semibold self-center my-2">
+          {user.name} {user.lastName}
+        </p>
+
+        <p className="font-semibold text-center">{user.user.email}</p>
+      </div>
+    </div>
+  );
 };
 
 export default Settings;
