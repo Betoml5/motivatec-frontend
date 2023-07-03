@@ -22,7 +22,7 @@ const Register = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="bg-white mt-4 max-w-2xl mx-auto p-4 rounded-md">
       <form id="form__student" className="form__student">
         <label className="label" htmlFor="name">
           Nombre

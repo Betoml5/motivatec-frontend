@@ -25,8 +25,6 @@ function initAxiosInterceptors() {
       };
     }
 
-    console.log(request.headers);
-
     if (!getAccessToken()) {
       return request;
     }
