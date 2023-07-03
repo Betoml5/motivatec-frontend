@@ -3,98 +3,90 @@ import { signinAPI, signoutAPI } from "../services/auth";
 import { useNavigate } from "react-router-dom";
 import { setAccessToken } from "../services/accessToken";
 import { UserClient } from "../services/axios";
-
+import Spinner from "../screens/loading/Spinner";
 export const AuthContext = createContext({});
 
 // eslint-disable-next-line react/prop-types
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [auth, setAuth] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+
+  const navigateByUserType = (userType) => {
+    switch (userType) {
+      case "admin":
+        navigate("/admin");
+        break;
+      case "teacher":
+        navigate("/teacher");
+        break;
+      case "student":
+        navigate("/student");
+        break;
+      default:
+        navigate("/");
+        break;
+    }
+  };
 
   const signin = async (email, password) => {
     try {
       const response = await signinAPI(email, password);
-      if (response.status !== 200) {
-        throw new Error("Not authorized");
-      }
       const userType =
         response.body.payload.entity.user.userType.type.toLowerCase();
       setAccessToken(response.body.token);
       setUser(response.body.payload.entity);
-      switch (userType) {
-        case "admin":
-          navigate("/admin");
-          break;
-        case "teacher":
-          navigate("/teacher");
-          break;
-        case "student":
-          navigate("/student");
-          break;
-        default:
-          break;
-      }
+      navigateByUserType(userType);
+      setAuth(true);
     } catch (error) {
       throw new Error(error);
     }
   };
 
-  const getCurrentUser = async () => {
+  const getCurrentSession = async () => {
     try {
+      setLoading(true);
+      const token = await UserClient.post("/auth/refresh-token");
+      if (token.status !== 200) {
+        throw new Error("Not authorized");
+      }
+      setAccessToken(token.data.body.token);
       const response = await UserClient.get("/user/auth/current");
       if (response.status !== 200) {
         throw new Error("Not authorized");
       }
       setUser(response.data.body.entity);
+      setAuth(true);
+      setLoading(false);
 
       const userType =
         response.data.body.entity.user.userType.type.toLowerCase();
-      switch (userType) {
-        case "admin":
-          navigate("/admin");
-          break;
-        case "teacher":
-          navigate("/teacher");
-          break;
-        case "student":
-          navigate("/student");
-          break;
-        default:
-          break;
-      }
+      navigateByUserType(userType);
     } catch (error) {
-      throw new Error(error);
-    }
-  };
-
-  const getToken = async () => {
-    try {
-      const response = await UserClient.post("/auth/refresh-token");
-      if (response.status !== 200) {
-        throw new Error("Not authorized");
-      }
-      setAccessToken(response.data.body.token);
-    } catch (error) {
+      setLoading(false);
       throw new Error(error);
     }
   };
 
   const signout = async () => {
-    navigate("/");
     setUser(null);
     setAccessToken(null);
+    setAuth(false);
+    navigate("/");
+
     await signoutAPI();
   };
 
   useEffect(() => {
-    getToken();
-    getCurrentUser();
-
+    getCurrentSession();
     return () => {
       setUser(null);
     };
   }, []);
+
+  if (loading) return <Spinner />;
 
   return (
     <AuthContext.Provider
@@ -102,6 +94,7 @@ export const AuthContextProvider = ({ children }) => {
         signin,
         signout,
         user,
+        auth,
       }}
     >
       {children}

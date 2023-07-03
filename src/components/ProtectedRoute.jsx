@@ -1,16 +1,12 @@
 import { Navigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import useAuth from "../hooks/useAuth";
-import Spinner from "../screens/loading/Spinner";
 
 function ProtectedRoute({ element: Element, allowedRoles, fallbackPath }) {
-  const { user } = useAuth();
+  const { user, auth } = useAuth();
   const role = user?.user?.userType?.type.toLowerCase();
 
-  if (!role) return <Spinner />;
-
-  if (!user) return <Spinner />;
-
+  if (!auth) return <Navigate to={fallbackPath} replace />;
   if (!allowedRoles.includes(role))
     return <Navigate to={fallbackPath} replace />;
 

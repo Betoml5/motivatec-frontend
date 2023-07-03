@@ -8,15 +8,17 @@ const Signin = () => {
   const { data: config, error, isLoading } = useQuery("config", getConfigAPI);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  console.log(config);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     await signin(email, password);
   };
 
   return (
-    <div className="max-w-2xl mx-auto bg-white rounded-md mt-10 p-4">
-      {/* <h1>{config[0].schoolName}</h1> */}
+    <div className="max-w-xl  bg-white rounded-md mt-20 p-4 mx-4 md:mx-auto">
+      <h1 className="text-center text-xl font-semibold my-2">
+        {config?.schoolName}
+      </h1>
       <form onSubmit={handleSubmit} className="flex flex-col p-4  ">
         <label htmlFor="email">Correo electronico</label>
         <input

@@ -25,4 +25,4 @@ export const signoutAPI = async () => {
   } catch (error) {
     throw new Error(error);
   }
-}
+};

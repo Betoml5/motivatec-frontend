@@ -19,6 +19,7 @@ import Posts from "./screens/forum/Posts";
 import ForumLayout from "./layouts/ForumLayout";
 import Create from "./screens/forum/Create";
 import PostDetails from "./components/forum/PostDetails";
+import NotFound from "./screens/NotFound";
 
 function App() {
   initAxiosInterceptors();
@@ -66,6 +67,7 @@ function App() {
         <Route path="/" element={<MainLayout />}>
           <Route path="" element={<Home />} />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );
