@@ -68,6 +68,10 @@ html {
   .post__user-date-time {
     @apply flex items-center mx-4 text-gray-400;
   }
+
+  .dashboard {
+    @apply p-4;
+  }
 }
 
 @tailwind utilities;

@@ -9,6 +9,7 @@ import {
 } from "react-icons/ai";
 import { PiStudentLight } from "react-icons/pi";
 import { CiSettings } from "react-icons/ci";
+import { MdOutlineForum } from "react-icons/md";
 import { useState } from "react";
 import useAuth from "../hooks/useAuth";
 
@@ -39,6 +40,10 @@ const TeacherLayout = () => {
         <Link className="sidebar__item" to="/teacher/students">
           <PiStudentLight className="sidebar__item-icon" size={30} />
           Estudiantes
+        </Link>
+        <Link className="sidebar__item" to="/forum">
+          <MdOutlineForum className="sidebar__item-icon" size={30} />
+          Foro
         </Link>
         <Link className="sidebar__item" to="estadisticas">
           <AiOutlinePieChart className="sidebar__item-icon" size={30} />

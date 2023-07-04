@@ -37,14 +37,14 @@ const ForumLayout = () => {
         {role === "admin" && (
           <Link className="sidebar__item" to="/admin">
             <AiOutlineHome className="sidebar__item-icon" size={30} />
-            Dashboard
+            Inicio
           </Link>
         )}
 
         {role === "teacher" && (
           <Link className="sidebar__item" to="/teacher">
             <AiOutlineHome className="sidebar__item-icon" size={30} />
-            Dashboard
+            Inicio
           </Link>
         )}
 

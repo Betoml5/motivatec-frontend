@@ -1,6 +1,6 @@
-const Spinner = () => {
+const SmallSpinner = () => {
   return (
-    <div className="flex items-center justify-center h-screen" role="status">
+    <div className="flex items-center justify-center " role="status">
       <svg
         aria-hidden="true"
         className="w-12 h-12 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
@@ -21,4 +21,4 @@ const Spinner = () => {
   );
 };
 
-export default Spinner;
+export default SmallSpinner;

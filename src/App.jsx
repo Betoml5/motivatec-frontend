@@ -12,6 +12,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import { default as SurveyForm } from "./screens/student/Survey";
 import { default as StudentDashboard } from "./screens/student/Dashboard";
 import { default as StudentSettings } from "./screens/student/Settings";
+import { default as TeacherSettings } from "./screens/teacher/Settings";
 
 import initAxiosInterceptors from "./services/axios/auth-helpers";
 import StudentLayout from "./layouts/StudentLayout";
@@ -47,6 +48,7 @@ function App() {
           <Route path="survey" element={<Survey />} />
           <Route path="students" element={<Students />} />
           <Route path="students/register" element={<Register />} />
+          <Route path="settings" element={<TeacherSettings />} />
         </Route>
 
         <Route

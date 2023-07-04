@@ -2,6 +2,7 @@ import { useState } from "react";
 import useAuth from "../hooks/useAuth";
 import { useQuery } from "react-query";
 import { getConfigAPI } from "../services/config";
+import Spinner from "../screens/loading/Spinner";
 
 const Signin = () => {
   const { signin } = useAuth();
@@ -14,10 +15,13 @@ const Signin = () => {
     await signin(email, password);
   };
 
+  if (isLoading) return <Spinner />;
+  if (error) return <p>Error </p>;
+
   return (
     <div className="max-w-xl  bg-white rounded-md mt-20 p-4 mx-4 md:mx-auto">
       <h1 className="text-center text-xl font-semibold my-2">
-        {config?.schoolName}
+        {config.schoolName}
       </h1>
       <form onSubmit={handleSubmit} className="flex flex-col p-4  ">
         <label htmlFor="email">Correo electronico</label>
