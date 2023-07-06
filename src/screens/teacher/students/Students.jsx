@@ -55,7 +55,7 @@ const Students = () => {
                 <td className="py-4 px-6">
                   <Link
                     classNameName="hover:underline"
-                    href={`/teacher/students/${student.id}`}
+                    to={`/teacher/students/edit/${student.id}`}
                   >
                     Editar
                   </Link>

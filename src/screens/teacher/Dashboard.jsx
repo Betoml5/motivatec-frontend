@@ -36,6 +36,8 @@ const Dashboard = () => {
             </h3>
             <div className="bg-red-300 p-4 rounded-md">
               <a
+                rel="noreferrer"
+                target="_blank"
                 className="underline"
                 href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjox-z2g_T_AhVYIUQIHQJuDzcQFnoECBIQAQ&url=https%3A%2F%2Fwww.flup.es%2Fimportancia-motivacion-estudiantes%2F&usg=AOvVaw2ew890521DHakkjJk1s8Iw&opi=89978449"
               >
@@ -44,6 +46,8 @@ const Dashboard = () => {
             </div>
             <div className="bg-purple-300 p-4 rounded-md">
               <a
+                rel="noreferrer"
+                target="_blank"
                 className="underline"
                 href="https://uchile.cl/presentacion/centro-de-aprendizaje-campus-sur/Material-Autorregulacion-Emocional/reconocer-prevenir-y-afrontar-el-estres-academico"
               >
@@ -52,6 +56,8 @@ const Dashboard = () => {
             </div>
             <div className="bg-yellow-300  p-4 rounded-md">
               <a
+                rel="noreferrer"
+                target="_blank"
                 className="underline"
                 href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjz6IDhhvT_AhV5C0QIHdWVCYkQFnoECBEQAQ&url=https%3A%2F%2Fwww.enriccorberainstitute.com%2Fblog%2Fmotivacion-en-los-estudiantes%2F&usg=AOvVaw2HB8bhbwPGnVrIBwcGSpFK&opi=89978449"
               >

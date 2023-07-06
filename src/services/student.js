@@ -20,7 +20,10 @@ export const getStudentAPI = async (id) => {
 
 export const createStudentAPI = async (studentData) => {
   try {
-    const response = await UserClient.post("/student", studentData);
+    console.log(studentData);
+    const response = await UserClient.post("/student", {
+      student: studentData,
+    });
     return response.data;
   } catch (error) {
     throw new Error(error);
@@ -29,7 +32,9 @@ export const createStudentAPI = async (studentData) => {
 
 export const updateStudentAPI = async (id, studentData) => {
   try {
-    const response = await UserClient.put(`/student/${id}`, studentData);
+    const response = await UserClient.put(`/student/${id}`, {
+      student: studentData,
+    });
     return response.data;
   } catch (error) {
     throw new Error(error);

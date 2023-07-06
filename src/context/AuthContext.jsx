@@ -1,16 +1,18 @@
 import { createContext, useEffect, useState } from "react";
-import { signinAPI, signoutAPI } from "../services/auth";
 import { useNavigate } from "react-router-dom";
+import { signinAPI, signoutAPI } from "../services/auth";
 import { setAccessToken } from "../services/accessToken";
 import { UserClient } from "../services/axios";
-import Spinner from "../screens/loading/Spinner";
 export const AuthContext = createContext({});
+
+import Spinner from "../screens/loading/Spinner";
 
 // eslint-disable-next-line react/prop-types
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [auth, setAuth] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const navigate = useNavigate();
 
@@ -34,14 +36,28 @@ export const AuthContextProvider = ({ children }) => {
   const signin = async (email, password) => {
     try {
       const response = await signinAPI(email, password);
+      if (!response.body) {
+        if (
+          response?.response.status === 403 ||
+          response?.response.status === 401
+        ) {
+          console.log(response);
+          throw new Error("Credenciales invalidas");
+        }
+        if (response?.response.status !== 200) {
+          console.log(response);
+          throw new Error("Error al iniciar sesion");
+        }
+      }
       const userType =
         response.body.payload.entity.user.userType.type.toLowerCase();
       setAccessToken(response.body.token);
       setUser(response.body.payload.entity);
-      navigateByUserType(userType);
       setAuth(true);
+      navigateByUserType(userType);
     } catch (error) {
-      throw new Error(error);
+      console.log(error.message);
+      setError(error.message);
     }
   };
 
@@ -95,6 +111,7 @@ export const AuthContextProvider = ({ children }) => {
         signout,
         user,
         auth,
+        error,
       }}
     >
       {children}

@@ -6,12 +6,10 @@ export const signinAPI = async (email, password) => {
       email,
       password,
     });
-    if (response.status !== 200) {
-      throw new Error(response.data.message);
-    }
+
     return response.data;
   } catch (error) {
-    throw new Error(error);
+    return error;
   }
 };
 

@@ -1,10 +1,14 @@
-import { useMutation, useQuery } from "react-query";
-import { getGroupsAPI } from "../../../services/group";
-import { createStudentAPI } from "../../../services/student";
 import { useForm } from "react-hook-form";
+import { useMutation, useQuery } from "react-query";
+import { useParams } from "react-router-dom";
+import { createStudentAPI, getStudentAPI } from "../../services/student";
+import { getGroupsAPI } from "../../services/group";
 
-const Register = () => {
+const StudentEdit = () => {
+  const { id } = useParams();
   const { data: groups, error, isLoading } = useQuery("groups", getGroupsAPI);
+  const { data: studentData } = useQuery("student", () => getStudentAPI(id));
+  console.log(studentData);
   const {
     data,
     error: studentError,
@@ -20,7 +24,6 @@ const Register = () => {
   const onSubmit = (student) => {
     mutate(student);
   };
-
   return (
     <div className="bg-white mt-4 max-w-2xl mx-auto p-4 rounded-md">
       <form
@@ -37,6 +40,7 @@ const Register = () => {
           type="text"
           placeholder="Nombre"
           name="name"
+          defaultValue={studentData?.name}
           {...register("name", { required: true })}
         ></input>
         {errors.name && (
@@ -53,6 +57,7 @@ const Register = () => {
           type="text"
           name="lastName"
           placeholder="Apellidos"
+          defaultValue={studentData?.lastName}
           {...register("lastName", { required: true })}
         ></input>
         {errors.lastName && (
@@ -70,6 +75,7 @@ const Register = () => {
           type="text"
           name="controlNumber"
           placeholder="Numero de control"
+          defaultValue={studentData?.controlNumber}
           {...register("controlNumber", { required: true })}
         ></input>
         {errors.controlNumber && (
@@ -92,9 +98,14 @@ const Register = () => {
             type="text"
             name="groupId"
             placeholder="Grupo"
+            defaultValue={studentData?.groupId}
             {...register("groupId", { required: true })}
           >
-            <option value="" disabled selected>
+            <option
+              value=""
+              disabled
+              selected={studentData?.groupId ? false : true}
+            >
               Selecciona un grupo
             </option>
             {groups?.map((group) => (
@@ -111,7 +122,7 @@ const Register = () => {
         )}
 
         <button onClick={onSubmit} className="btn" type="submit">
-          Registrar
+          Editar
         </button>
 
         {studentIsLoading ? (
@@ -126,4 +137,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default StudentEdit;
