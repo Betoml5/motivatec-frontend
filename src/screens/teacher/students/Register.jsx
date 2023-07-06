@@ -10,7 +10,7 @@ const Register = () => {
     error: studentError,
     isLoading: studentIsLoading,
     mutate,
-  } = useMutation("registerStudent", (student) => createStudentAPI(student));
+  } = useMutation("registerStudent", () => createStudentAPI(student));
   const {
     register,
     handleSubmit,
