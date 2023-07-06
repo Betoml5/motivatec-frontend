@@ -10,10 +10,13 @@ const Register = () => {
     error: studentError,
     isLoading: studentIsLoading,
     mutate,
-  } = useMutation("registerStudent", () => createStudentAPI(student));
+  } = useMutation("registerStudent", (student) => createStudentAPI(student), {
+    onSuccess: () => reset(),
+  });
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 

@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useMutation, useQuery } from "react-query";
 import { useParams } from "react-router-dom";
-import { createStudentAPI, getStudentAPI } from "../../services/student";
+import { getStudentAPI, updateStudentAPI } from "../../services/student";
 import { getGroupsAPI } from "../../services/group";
 
 const StudentEdit = () => {
@@ -14,7 +14,10 @@ const StudentEdit = () => {
     error: studentError,
     isLoading: studentIsLoading,
     mutate,
-  } = useMutation("registerStudent", (student) => createStudentAPI(student));
+  } = useMutation("registerStudent", (student) =>
+    updateStudentAPI(id, student)
+  );
+
   const {
     register,
     handleSubmit,
@@ -131,7 +134,7 @@ const StudentEdit = () => {
         ) : studentError ? (
           <p>Error al registrar al alumno</p>
         ) : data ? (
-          <p>Alumno registrado</p>
+          <p>Alumno editado correctamente</p>
         ) : null}
       </form>
     </div>
