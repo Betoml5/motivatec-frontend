@@ -20,7 +20,6 @@ export const getStudentAPI = async (id) => {
 
 export const createStudentAPI = async (studentData) => {
   try {
-    console.log(studentData);
     const response = await UserClient.post("/student", {
       student: studentData,
     });
@@ -43,7 +42,7 @@ export const updateStudentAPI = async (id, studentData) => {
 
 export const deleteStudentAPI = async (id) => {
   try {
-    const response = await UserClient.delete(`/students/${id}`);
+    const response = await UserClient.delete(`/student/${id}`);
     return response.data;
   } catch (error) {
     throw new Error(error);

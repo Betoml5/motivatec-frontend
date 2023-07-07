@@ -2,14 +2,39 @@ import { useMutation, useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { deleteStudentAPI, getStudentsAPI } from "../../../services/student";
 
+import { toast } from "react-toastify";
+
 const Students = () => {
   const {
     data: students,
     isLoading,
     error,
+    refetch,
   } = useQuery("students", getStudentsAPI);
 
-  const {} = useMutation("deleteStudent", (id) => deleteStudentAPI(id))
+  const { mutate } = useMutation(
+    "deleteStudent",
+    (id) => deleteStudentAPI(id),
+    {
+      onError: () => toast.error("Error al eliminar estudiante"),
+      onMutate: () => toast.info("Eliminando estudiante"),
+      onSettled: (data, error) => {
+        if (error) {
+          toast.error("Error al eliminar estudiante");
+        }
+      },
+      onSuccess: () => {
+        toast.done("Estudiante eliminado");
+        refetch();
+      },
+    }
+  );
+
+  const handleDelete = (id) => {
+    if (window.confirm("¿Estás seguro de eliminar este estudiante?")) {
+      mutate(id);
+    }
+  };
 
   return (
     <section className="flex flex-col p-4">
@@ -69,7 +94,12 @@ const Students = () => {
                     </Link>
                   </td>
                   <td className="py-4 px-6">
-                    <button className="hover:underline">Eliminar</button>
+                    <button
+                      className="hover:underline"
+                      onClick={() => handleDelete(student.id)}
+                    >
+                      Eliminar
+                    </button>
                   </td>
                 </tr>
               ))

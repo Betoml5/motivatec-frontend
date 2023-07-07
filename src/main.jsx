@@ -7,6 +7,8 @@ import { AuthContextProvider } from "./context/AuthContext";
 import { QueryClient } from "react-query";
 import { QueryClientProvider } from "react-query";
 import { UserContextProvider } from "./context/UserContext.jsx";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const queryClient = new QueryClient();
 
@@ -16,6 +18,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <QueryClientProvider client={queryClient}>
         <AuthContextProvider>
           <UserContextProvider>
+            <ToastContainer />
             <App />
           </UserContextProvider>
         </AuthContextProvider>

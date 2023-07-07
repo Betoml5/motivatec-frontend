@@ -11,3 +11,15 @@ export const getCurrentSession = async () => {
     throw new Error(error);
   }
 };
+
+export const deleteOneUser = async (id) => {
+  try {
+    const response = await UserClient.delete(`/user/${id}`);
+    if (response.status !== 200) {
+      throw new Error(response.data.message);
+    }
+    return response.data.body;
+  } catch (error) {
+    throw new Error(error);
+  }
+};

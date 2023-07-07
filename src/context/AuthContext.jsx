@@ -37,11 +37,13 @@ export const AuthContextProvider = ({ children }) => {
     try {
       const response = await signinAPI(email, password);
       if (!response.body) {
+        if (!response?.response) {
+          throw new Error("No se pudo conectar con el servidor");
+        }
         if (
           response?.response.status === 403 ||
           response?.response.status === 401
         ) {
-          console.log(response);
           throw new Error("Credenciales invalidas");
         }
         if (response?.response.status !== 200) {
@@ -56,7 +58,6 @@ export const AuthContextProvider = ({ children }) => {
       setAuth(true);
       navigateByUserType(userType);
     } catch (error) {
-      console.log(error.message);
       setError(error.message);
     }
   };

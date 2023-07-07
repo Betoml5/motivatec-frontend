@@ -3,19 +3,28 @@ import { useMutation, useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { getStudentAPI, updateStudentAPI } from "../../services/student";
 import { getGroupsAPI } from "../../services/group";
+import { toast } from "react-toastify";
 
 const StudentEdit = () => {
   const { id } = useParams();
   const { data: groups, error, isLoading } = useQuery("groups", getGroupsAPI);
   const { data: studentData } = useQuery("student", () => getStudentAPI(id));
 
-  const {
-    data,
-    error: studentError,
-    isLoading: studentIsLoading,
-    mutate,
-  } = useMutation("registerStudent", (student) =>
-    updateStudentAPI(id, student)
+  const { mutate } = useMutation(
+    "registerStudent",
+    (student) => updateStudentAPI(id, student),
+    {
+      onError: () => toast.error("Error al guardar cambios"),
+      onMutate: () => toast.info("Guardando cambios"),
+      onSettled: (data, error) => {
+        if (error) {
+          toast.error("Error al guardar los cambios");
+        }
+      },
+      onSuccess: () => {
+        toast.done("Cambios guardados");
+      },
+    }
   );
 
   const {
@@ -34,6 +43,7 @@ const StudentEdit = () => {
         id="form__student"
         className="form__student"
         onSubmit={handleSubmit(onSubmit)}
+        noValidate
       >
         <label className="label" htmlFor="name">
           Nombre
@@ -125,17 +135,9 @@ const StudentEdit = () => {
           </span>
         )}
 
-        <button onClick={onSubmit} className="btn" type="submit">
-          Editar
+        <button className="btn" type="submit">
+          Guardar cambios
         </button>
-
-        {studentIsLoading ? (
-          <p>Cargando...</p>
-        ) : studentError ? (
-          <p>Error al registrar al alumno</p>
-        ) : data ? (
-          <p>Alumno editado correctamente</p>
-        ) : null}
       </form>
     </div>
   );

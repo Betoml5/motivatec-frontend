@@ -2,17 +2,27 @@ import { useMutation, useQuery } from "react-query";
 import { getGroupsAPI } from "../../../services/group";
 import { createStudentAPI } from "../../../services/student";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const { data: groups, error, isLoading } = useQuery("groups", getGroupsAPI);
-  const {
-    data,
-    error: studentError,
-    isLoading: studentIsLoading,
-    mutate,
-  } = useMutation("registerStudent", (student) => createStudentAPI(student), {
-    onSuccess: () => reset(),
-  });
+  const { isLoading: studentIsLoading, mutate } = useMutation(
+    "registerStudent",
+    (student) => createStudentAPI(student),
+    {
+      onError: () => toast.error("Error al registrar estudiante"),
+      onMutate: () => toast.info("Registrando estudiante"),
+      onSettled: (data, error) => {
+        if (error) {
+          toast.error("Error al registrar estudiante");
+        }
+      },
+      onSuccess: () => {
+        toast.done("Estudiante registrado");
+        reset();
+      },
+    }
+  );
   const {
     register,
     handleSubmit,
@@ -113,17 +123,9 @@ const Register = () => {
           </span>
         )}
 
-        <button onClick={onSubmit} className="btn" type="submit">
-          Registrar
+        <button className="btn" type="submit">
+          {studentIsLoading ? "Cargando..." : "Registrar"}
         </button>
-
-        {studentIsLoading ? (
-          <p>Cargando...</p>
-        ) : studentError ? (
-          <p>Error al registrar al alumno</p>
-        ) : data ? (
-          <p>Alumno registrado</p>
-        ) : null}
       </form>
     </div>
   );
