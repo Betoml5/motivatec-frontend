@@ -19,9 +19,9 @@ const StudentLayout = () => {
         <h3>Alumno</h3>
       </header>
       <nav
-        className={`flex flex-col sidebar  ${
+        className={`flex flex-col sidebar transform  ${
           sidebarOpen ? "left-0 " : "-left-64"
-        }`}
+        } `}
       >
         <button className="mb-10" onClick={() => setSidebarOpen(!sidebarOpen)}>
           <AiOutlineMenu className="sidebar__item-icon" size={30} />

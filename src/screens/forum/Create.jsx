@@ -37,20 +37,23 @@ const Create = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto my-2 bg-white">
-      
+    <div className="max-w-6xl m-4 mr-auto  border border-red-500">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Controller
-          name="content"
-          control={control}
-          render={({ field }) => (
-            <ReactQuill
-              value={field.value}
-              onChange={field.onChange}
-              className="h-full"
-            />
-          )}
-        />
+        <div className="flex flex-col  lg:flex-row">
+          <Controller
+            name="content"
+            control={control}
+            render={({ field }) => (
+              <ReactQuill value={field.value} onChange={field.onChange} />
+            )}
+          />
+          <div className="flex flex-col p-4 ">
+            <label htmlFor="title">Titulo</label>
+            <input className="input" type="text" id="title" name="title" />
+          </div>
+        </div>
+
+        <button className="btn mx-2">Crear post</button>
       </form>
     </div>
   );
