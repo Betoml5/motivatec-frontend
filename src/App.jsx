@@ -36,7 +36,16 @@ function App() {
       <Routes>
         <Route path="/forum" element={<ForumLayout />}>
           <Route path="" element={<Posts />} />
-          <Route path="create" element={<Create />} />
+          <Route
+            path="create"
+            element={
+              <ProtectedRoute
+                element={Create}
+                allowedRoles={["student"]}
+                fallbackPath={"/forum"}
+              />
+            }
+          />
           <Route path="post/:id" element={<PostDetails />} />
         </Route>
 

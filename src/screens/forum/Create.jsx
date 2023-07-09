@@ -1,38 +1,54 @@
 import { useMutation } from "react-query";
 import { createPostAPI } from "../../services/post";
-import { useState } from "react";
-import { DateTime } from "luxon";
+import { toast } from "react-toastify";
+
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 const Create = () => {
-  const { mutate, isError, isLoading, error } = useMutation(createPostAPI);
-  const [post, setPost] = useState({
-    title: "",
-    content: "",
-    date: DateTime.now().toFormat("dd-MM-yyyy HH:mm:ss"),
-    userId: "",
+  const navigate = useNavigate();
+  const { mutate } = useMutation((post) => createPostAPI(post), {
+    onSettled: (data, error) => {
+      if (error) {
+        toast.error("Error al crear los cambios");
+      }
+      if (data) {
+        toast.success("Post creado");
+        navigate("/forum");
+      }
+    },
   });
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    mutate({
-      post: post,
-    });
-  };
 
-  const onChange = (e) => {
-    setPost({ ...post, [e.target.name]: e.target.value });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (post) => {
+    mutate({
+      ...post,
+      userId: "",
+      date: "",
+    });
   };
 
   return (
     <div className="max-w-6xl mx-auto p-4">
-      <form onSubmit={handleSubmit} className="flex flex-col">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
         <h1 className="text-2xl ">Crear Post</h1>
         <input
           className="input"
           type="text"
           name="title"
           placeholder="Titulo"
-          onChange={onChange}
+          {...register("title", { required: true })}
         ></input>
+        {errors.title && (
+          <span className="text-red-500 text-sm">
+            El titulo no puede estar vacio
+          </span>
+        )}
         <textarea
           placeholder="Yo pienso que..."
           name="content"
@@ -40,11 +56,14 @@ const Create = () => {
           cols="30"
           rows="20"
           className="input"
-          onChange={onChange}
+          {...register("content", { required: true })}
         ></textarea>
+        {errors.content && (
+          <span className="text-red-500 text-sm">
+            El contenido no puede estar vacio
+          </span>
+        )}
         <button className="btn">Crear</button>
-        {isLoading && <p>Cargando...</p>}
-        {isError && <p>Error: {error.message}</p>}
       </form>
     </div>
   );

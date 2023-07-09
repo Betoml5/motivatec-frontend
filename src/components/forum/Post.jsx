@@ -14,7 +14,6 @@ const Post = ({ post }) => {
 
         <p className=" truncate">{post.content}</p>
       </div>
-      {/* <p>{calculateHoursSinceCreation(post.date)}</p> */}
       <div className="post__user-data ">
         <div className="shadow-md rounded-full p-2 mr-2">
           <PiStudentThin size={20} />

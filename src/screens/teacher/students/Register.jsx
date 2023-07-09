@@ -10,16 +10,15 @@ const Register = () => {
     "registerStudent",
     (student) => createStudentAPI(student),
     {
-      onError: () => toast.error("Error al registrar estudiante"),
-      onMutate: () => toast.info("Registrando estudiante"),
+      onMutate: () => toast.info("Guardando cambios"),
       onSettled: (data, error) => {
         if (error) {
-          toast.error("Error al registrar estudiante");
+          toast.error("Error al guardar los cambios");
         }
-      },
-      onSuccess: () => {
-        toast.done("Estudiante registrado");
-        reset();
+        if (data) {
+          toast.success("Cambios guardados");
+          reset();
+        }
       },
     }
   );
@@ -50,6 +49,7 @@ const Register = () => {
           type="text"
           placeholder="Nombre"
           name="name"
+          required
           {...register("name", { required: true })}
         ></input>
         {errors.name && (
@@ -66,6 +66,7 @@ const Register = () => {
           type="text"
           name="lastName"
           placeholder="Apellidos"
+          required
           {...register("lastName", { required: true })}
         ></input>
         {errors.lastName && (
@@ -83,7 +84,9 @@ const Register = () => {
           type="text"
           name="controlNumber"
           placeholder="Numero de control"
-          {...register("controlNumber", { required: true })}
+          minLength={8}
+          required
+          {...register("controlNumber", { required: true, minLength: 8 })}
         ></input>
         {errors.controlNumber && (
           <span className="text-red-500 text-sm">
@@ -105,6 +108,7 @@ const Register = () => {
             type="text"
             name="groupId"
             placeholder="Grupo"
+            required
             {...register("groupId", { required: true })}
           >
             <option value="" disabled selected>

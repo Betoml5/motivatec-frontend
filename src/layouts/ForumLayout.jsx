@@ -58,10 +58,12 @@ const ForumLayout = () => {
           <MdOutlineForum className="sidebar__item-icon" size={30} />
           Foro
         </Link>
-        <Link className="sidebar__item" to="/forum/create">
-          <IoCreateOutline className="sidebar__item-icon" size={30} />
-          Crear post
-        </Link>
+        {role === "student" && (
+          <Link className="sidebar__item" to="/forum/create">
+            <IoCreateOutline className="sidebar__item-icon" size={30} />
+            Crear post
+          </Link>
+        )}
 
         {/* Make a condition if role is student or teacher or admin */}
 

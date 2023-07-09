@@ -14,15 +14,15 @@ const StudentEdit = () => {
     "registerStudent",
     (student) => updateStudentAPI(id, student),
     {
-      onError: () => toast.error("Error al guardar cambios"),
       onMutate: () => toast.info("Guardando cambios"),
       onSettled: (data, error) => {
+        toast.info("Guardando cambios...");
         if (error) {
           toast.error("Error al guardar los cambios");
         }
-      },
-      onSuccess: () => {
-        toast.done("Cambios guardados");
+        if (data) {
+          toast.success("Cambios guardados");
+        }
       },
     }
   );
@@ -43,7 +43,6 @@ const StudentEdit = () => {
         id="form__student"
         className="form__student"
         onSubmit={handleSubmit(onSubmit)}
-        noValidate
       >
         <label className="label" htmlFor="name">
           Nombre
@@ -54,6 +53,7 @@ const StudentEdit = () => {
           type="text"
           placeholder="Nombre"
           name="name"
+          required
           defaultValue={studentData?.name}
           {...register("name", { required: true })}
         ></input>
@@ -90,7 +90,9 @@ const StudentEdit = () => {
           name="controlNumber"
           placeholder="Numero de control"
           defaultValue={studentData?.controlNumber}
-          {...register("controlNumber", { required: true })}
+          minLength={8}
+          required
+          {...register("controlNumber", { required: true, minLength: 8 })}
         ></input>
         {errors.controlNumber && (
           <span className="text-red-500 text-sm">
@@ -112,6 +114,7 @@ const StudentEdit = () => {
             type="text"
             name="groupId"
             placeholder="Grupo"
+            required
             defaultValue={studentData?.groupId}
             {...register("groupId", { required: true })}
           >
