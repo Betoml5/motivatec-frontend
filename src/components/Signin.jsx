@@ -7,11 +7,10 @@ import { useForm } from "react-hook-form";
 
 const Signin = () => {
   const { signin, error } = useAuth();
-  const {
-    data: config,
-    error: configError,
-    isLoading: isLoadingConfig,
-  } = useQuery("config", getConfigAPI);
+  const { data: config, isLoading: isLoadingConfig } = useQuery(
+    "config",
+    getConfigAPI
+  );
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   // const { register, handleSubmit, watch, formState: { errors } } = useForm();

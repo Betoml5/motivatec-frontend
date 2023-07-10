@@ -5,6 +5,9 @@ import { PiStudentThin } from "react-icons/pi";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { calculateTimeSinceCreation } from "../../utils/dates";
 
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.bubble.css";
+
 const PostDetails = () => {
   const { id } = useParams();
   const {
@@ -36,7 +39,12 @@ const PostDetails = () => {
       </div>
 
       <div className="text-lg max-w-4xl  mx-auto mt-6 mb-10 leading-8">
-        <p>{post.content}</p>
+        <ReactQuill
+          className="bg-white p-4 rounded-md"
+          value={post.content}
+          readOnly={true}
+          theme={"bubble"}
+        />
       </div>
     </div>
   );

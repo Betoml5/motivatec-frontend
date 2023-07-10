@@ -71,7 +71,9 @@ const Dashboard = () => {
         <div className="my-4 md:col-span-4 md:m-0 lg:col-span-3">
           <h3 className="text-xl">Tus estudiantes</h3>
           {isLoadingStudents ? (
-            <p>Cargando...</p>
+            <SmallSpinner />
+          ) : students?.length === 0 ? (
+            <p>No tienes estudiantes asignados</p>
           ) : (
             students.map((student) => (
               <div

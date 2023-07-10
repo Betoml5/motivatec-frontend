@@ -1,11 +1,15 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;500;700;900&display=swap");
-
 @tailwind base;
 @tailwind components;
 
 html {
   background-color: #e6e6e6;
   font-family: "Montserrat", sans-serif;
+}
+
+.truncate-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 @layer components {

@@ -22,13 +22,10 @@ const Create = () => {
     },
   });
 
-  const {
-    handleSubmit,
-    formState: { errors },
-    control,
-  } = useForm();
+  const { handleSubmit, control } = useForm();
 
   const onSubmit = (post) => {
+    console.log(post);
     mutate({
       ...post,
       userId: "",
@@ -37,23 +34,44 @@ const Create = () => {
   };
 
   return (
-    <div className="max-w-6xl m-4 mr-auto  border border-red-500">
+    <div className="max-w-7xl mx-auto my-4  rounded-md">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex flex-col  lg:flex-row">
+        <div className="flex flex-col lg:flex-row">
           <Controller
             name="content"
             control={control}
             render={({ field }) => (
-              <ReactQuill value={field.value} onChange={field.onChange} />
+              <ReactQuill
+                theme="snow"
+                value={field.value}
+                onChange={field.onChange}
+                className="border p-4  lg:w-3/4"
+              />
             )}
           />
           <div className="flex flex-col p-4 ">
-            <label htmlFor="title">Titulo</label>
-            <input className="input" type="text" id="title" name="title" />
+            <Controller
+              name="title"
+              control={control}
+              rules={{ required: true }}
+              render={({ field }) => (
+                <div className="flex flex-col">
+                  <label htmlFor="title">Titulo</label>
+                  <input
+                    className="input"
+                    type="text"
+                    id="title"
+                    name="title"
+                    {...field}
+                  />
+                </div>
+              )}
+            />
+            <button type="submit" className="btn my-0">
+              Crear post
+            </button>
           </div>
         </div>
-
-        <button className="btn mx-2">Crear post</button>
       </form>
     </div>
   );
