@@ -14,10 +14,14 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import { default as SurveyForm } from "./screens/student/Survey";
 import { default as StudentDashboard } from "./screens/student/Dashboard";
 import { default as AdminDashboard } from "./screens/admin/Dashboard";
-import StudentEdit from "./screens/shared/StudentEdit";
 import { default as StudentSettings } from "./screens/student/Settings";
 import { default as TeacherSettings } from "./screens/teacher/Settings";
+import { default as StudentsAdmin } from "./screens/admin/Students";
+import { default as TeachersAdmin } from "./screens/admin/Teachers";
+import { default as PostsAdmin } from "./screens/admin/Posts";
+import { default as SettingsAdmin } from "./screens/admin/Settings";
 
+import StudentEdit from "./screens/shared/StudentEdit";
 import StudentLayout from "./layouts/StudentLayout";
 import Posts from "./screens/forum/Posts";
 import ForumLayout from "./layouts/ForumLayout";
@@ -94,6 +98,10 @@ function App() {
           }
         >
           <Route path="" element={<AdminDashboard />} />
+          <Route path="students" element={<StudentsAdmin />} />
+          <Route path="teachers" element={<TeachersAdmin />} />
+          <Route path="posts" element={<PostsAdmin />} />
+          <Route path="settings" element={<SettingsAdmin />} />
         </Route>
 
         <Route path="/" element={<MainLayout />}>

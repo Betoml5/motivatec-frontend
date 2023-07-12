@@ -25,28 +25,26 @@ const AdminLayout = () => {
         <button className="mb-10" onClick={() => setSidebarOpen(!sidebarOpen)}>
           <AiOutlineMenu className="sidebar__item-icon" size={30} />
         </button>
-        <Link className="sidebar__item" to="/student">
+        <Link className="sidebar__item" to="/admin">
           <AiOutlineHome className="sidebar__item-icon" size={30} />
           Inicio
         </Link>
-        <Link className="sidebar__item">
+        <Link className="sidebar__item" to="/admin/students">
           <PiStudentThin className="sidebar__item-icon" size={30} />
           Alumnos
         </Link>
-        <Link className="sidebar__item">
+        <Link className="sidebar__item" to="/admin/teachers">
           <PiChalkboardTeacherThin className="sidebar__item-icon" size={30} />
           Profesores
         </Link>
-        <Link className="sidebar__item" to="/forum">
+        <Link className="sidebar__item" to="/admin/posts">
           <MdOutlineForum className="sidebar__item-icon" size={30} />
-          Foro
+          Posts
         </Link>
-        <Link>
-            
-        </Link>
-        <Link className="sidebar__item" to="/student/settings">
+        <Link></Link>
+        <Link className="sidebar__item" to="/admin/settings">
           <CiSettings className="sidebar__item-icon" size={30} />
-          Mi cuenta
+          Ajustes
         </Link>
         <button onClick={() => signout()} className="sidebar__item">
           <AiOutlineLogout className="sidebar__item-icon" size={30} />
