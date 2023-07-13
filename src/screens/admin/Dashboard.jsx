@@ -14,7 +14,7 @@ const Dashboard = () => {
   if (configLoading) return <Spinner />;
   if (configError) return <div>Error al obtener los datos de la escuela</div>;
   return (
-    <div className="max-w-3xl mx-auto bg-white rounded-md  py-10 px-16 md:m-4">
+    <div className="max-w-3xl mx-auto bg-white rounded-md  py-10 px-16 md:my-4">
       <h2 className="text-2xl">{config.schoolName}</h2>
       <section className="grid-cols-1">
         <div>

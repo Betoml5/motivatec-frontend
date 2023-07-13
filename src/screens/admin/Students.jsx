@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
-import { getStudentsAPI } from "../../services/student";
-import { useQuery } from "react-query";
+import { deleteStudentAPI, getStudentsAPI } from "../../services/student";
+import { useMutation, useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import Spinner from "../loading/Spinner";
 
@@ -10,6 +10,12 @@ const Students = () => {
     error,
     isLoading,
   } = useQuery("students", getStudentsAPI);
+
+  const { mutate } = useMutation("deleteStudent", (id) => deleteStudentAPI(id));
+
+  const handleDelete = (id) => {
+    mutate(id);
+  };
 
   if (isLoading) return <Spinner />;
   if (error) return <div>Error al obtener los alumnos</div>;
@@ -66,13 +72,18 @@ const Students = () => {
                   <td className="py-4 px-6">
                     <Link
                       className="hover:underline"
-                      to={`/teacher/students/edit/${student.id}`}
+                      to={`/admin/students/edit/${student.id}`}
                     >
                       Editar
                     </Link>
                   </td>
                   <td className="py-4 px-6">
-                    <button className="hover:underline">Eliminar</button>
+                    <button
+                      onClick={() => handleDelete(student.id)}
+                      className="hover:underline"
+                    >
+                      Eliminar
+                    </button>
                   </td>
                 </tr>
               ))
