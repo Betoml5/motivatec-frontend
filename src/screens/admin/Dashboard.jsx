@@ -21,7 +21,7 @@ const Dashboard = () => {
           <p>{config.schoolAddress}</p>
           <p>{formatPhoneNumber(config.schoolPhone)}</p>
           <p>{config.scholEmail}</p>
-          <Link className="underline text-blue-600" to="/admin/school/setting">
+          <Link className="underline text-blue-600" to="/admin/settings">
             Editar datos
           </Link>
         </div>

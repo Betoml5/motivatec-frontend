@@ -48,3 +48,19 @@ export const deleteStudentAPI = async (id) => {
     throw new Error(error);
   }
 };
+
+export const deleteManyStudentsAPI = async (ids) => {
+  try {
+    const response = await UserClient.delete("/student", {
+      data: {
+        ids: ids,
+      },
+    });
+
+    if (response.status !== 200) throw new Error("Error");
+
+    return response.data;
+  } catch (error) {
+    throw new Error(error);
+  }
+};

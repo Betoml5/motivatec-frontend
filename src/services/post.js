@@ -52,3 +52,17 @@ export const deletePostAPI = async (id) => {
     throw new Error(error);
   }
 };
+
+export const deleteManyPostsAPI = async (ids) => {
+  try {
+    const response = await UserClient.delete("/post", {
+      data: {
+        ids: ids,
+      },
+    });
+    if (response.status !== 200) throw new Error("Error");
+    return response.data.body;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
