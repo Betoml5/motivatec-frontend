@@ -1,19 +1,43 @@
-import { useQuery } from "react-query";
 import Spinner from "../loading/Spinner";
 import useUser from "../../hooks/useUser";
-import { getRandomAdviceAPI } from "../../services/advice";
-import { getPostsAPI } from "../../services/post";
 import Post from "../../components/forum/Post";
 import SmallSpinner from "../../components/loading/SmallSpinner";
+
+import { useMutation, useQuery } from "react-query";
+import { getRandomAdviceAPI } from "../../services/advice";
+import { getPostsAPI } from "../../services/post";
+import {
+  checkIsSurveyDoneAPI,
+  createDailySurveyAPI,
+} from "../../services/dailySurvey";
+import { useForm } from "react-hook-form";
+
 const Dashboard = () => {
   const { user } = useUser();
   const { data, isLoading } = useQuery("advice", getRandomAdviceAPI, {
     refetchOnWindowFocus: false,
   });
-
+  const { data: survey, refetch: refetchDailySurvey } = useQuery(
+    "surveyDone",
+    checkIsSurveyDoneAPI
+  );
   const { data: posts, isLoading: isLoadingPosts } = useQuery("posts", () =>
     getPostsAPI({ limit: 5 })
   );
+  const { mutate: sendDailySurvey } = useMutation("survey", (survey) =>
+    createDailySurveyAPI(survey)
+  );
+
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
+
+  const onSubmit = (data) => {
+    sendDailySurvey(data);
+    refetchDailySurvey();
+  };
 
   if (!user) return <Spinner />;
   return (
@@ -60,22 +84,65 @@ const Dashboard = () => {
           <h3 className="text-xl my-4 md:my-0 md:mb-4">
             ¿Comó te sientes hoy?
           </h3>
-          <form>
+
+          {survey?.isDone && (
+            <div className="bg-green-300 p-4 rounded-md my-4">
+              <p>Ya has realizado la encuesta de hoy</p>
+            </div>
+          )}
+
+          <form
+            className={`${survey?.isDone && "opacity-80"}`}
+            defaultValue={survey?.emotion}
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <div className="flex flex-col gap-y-3">
               <div className="flex items-center gap-x-2 bg-yellow-300 p-4 rounded-md">
-                <input type="radio" name="feeling" id="happy" value="happy" />
+                <input
+                  disabled={survey?.isDone}
+                  type="radio"
+                  name="feeling"
+                  id="happy"
+                  value="happy"
+                  checked={survey?.emotion === "happy"}
+                  {...register("emotion", { required: true })}
+                />
                 <label htmlFor="happy">Feliz</label>
               </div>
               <div className="flex items-center gap-x-2 bg-purple-300 p-4 rounded-md">
-                <input type="radio" name="feeling" id="sad" value="sad" />
+                <input
+                  disabled={survey?.isDone}
+                  type="radio"
+                  name="feeling"
+                  id="sad"
+                  value="sad"
+                  checked={survey?.emotion === "sad"}
+                  {...register("emotion", { required: true })}
+                />
                 <label htmlFor="sad">Triste</label>
               </div>
               <div className="flex items-center gap-x-2 bg-red-300 p-4 rounded-md">
-                <input type="radio" name="feeling" id="angry" value="angry" />
+                <input
+                  disabled={survey?.isDone}
+                  type="radio"
+                  name="feeling"
+                  id="angry"
+                  value="angry"
+                  checked={survey?.emotion === "angry"}
+                  {...register("emotion", { required: true })}
+                />
                 <label htmlFor="angry">Enojado</label>
               </div>
               <div className="flex items-center gap-x-2 bg-gray-400 p-4 rounded-md">
-                <input type="radio" name="feeling" id="tired" value="tired" />
+                <input
+                  disabled={survey?.isDone}
+                  type="radio"
+                  name="feeling"
+                  id="tired"
+                  value="tired"
+                  checked={survey?.emotion === "tired"}
+                  {...register("emotion", { required: true })}
+                />
                 <label htmlFor="tired">Cansado</label>
               </div>
               <div className="flex items-center gap-x-2 bg-blue-400 p-4 rounded-md">
@@ -84,10 +151,19 @@ const Dashboard = () => {
                   name="feeling"
                   id="anxious"
                   value="anxious"
+                  checked={survey?.emotion === "anxious"}
+                  {...register("emotion", { required: true })}
                 />
                 <label htmlFor="anxious">Ansioso</label>
               </div>
             </div>
+            <button
+              disabled={survey?.isDone}
+              className="btn w-full disabled:opacity-50 disabled:cursor-not-allowed"
+              type="submit"
+            >
+              Enviar
+            </button>
           </form>
         </div>
 

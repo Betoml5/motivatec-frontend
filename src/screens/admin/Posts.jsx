@@ -64,6 +64,9 @@ const Posts = () => {
   };
 
   if (isLoading) return <Spinner />;
+  if (error) return <p>Error al cargar los posts</p>;
+  if (posts?.length === 0) return <p>No hay posts</p>;
+
   return (
     <section className="flex flex-col p-4">
       <button
