@@ -21,6 +21,7 @@ const Dashboard = () => {
     "surveyDone",
     checkIsSurveyDoneAPI
   );
+  console.log(survey);
   const { data: posts, isLoading: isLoadingPosts } = useQuery("posts", () =>
     getPostsAPI({ limit: 5 })
   );
@@ -104,7 +105,7 @@ const Dashboard = () => {
                   name="feeling"
                   id="happy"
                   value="happy"
-                  checked={survey?.emotion === "happy"}
+                  defaultChecked={survey?.emotion === "happy"}
                   {...register("emotion", { required: true })}
                 />
                 <label htmlFor="happy">Feliz</label>
@@ -116,7 +117,7 @@ const Dashboard = () => {
                   name="feeling"
                   id="sad"
                   value="sad"
-                  checked={survey?.emotion === "sad"}
+                  defaultChecked={survey?.emotion === "sad"}
                   {...register("emotion", { required: true })}
                 />
                 <label htmlFor="sad">Triste</label>
@@ -128,7 +129,7 @@ const Dashboard = () => {
                   name="feeling"
                   id="angry"
                   value="angry"
-                  checked={survey?.emotion === "angry"}
+                  defaultChecked={survey?.emotion === "angry"}
                   {...register("emotion", { required: true })}
                 />
                 <label htmlFor="angry">Enojado</label>
@@ -140,7 +141,7 @@ const Dashboard = () => {
                   name="feeling"
                   id="tired"
                   value="tired"
-                  checked={survey?.emotion === "tired"}
+                  defaultChecked={survey?.emotion === "tired"}
                   {...register("emotion", { required: true })}
                 />
                 <label htmlFor="tired">Cansado</label>
@@ -151,12 +152,17 @@ const Dashboard = () => {
                   name="feeling"
                   id="anxious"
                   value="anxious"
-                  checked={survey?.emotion === "anxious"}
+                  defaultChecked={survey?.emotion === "anxious"}
                   {...register("emotion", { required: true })}
                 />
                 <label htmlFor="anxious">Ansioso</label>
               </div>
             </div>
+            {errors.emotion && (
+              <p className="text-red-500 font-semibold mt-2">
+                Selecciona una opción
+              </p>
+            )}
             <button
               disabled={survey?.isDone}
               className="btn w-full disabled:opacity-50 disabled:cursor-not-allowed"

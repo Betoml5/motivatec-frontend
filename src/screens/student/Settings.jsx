@@ -15,7 +15,7 @@ const Settings = () => {
           <PiStudentThin size={50} className="w-full h-full" />
         </div>
         <Link
-          to="/edit"
+          to={`/student/edit/${user.id}`}
           className="text-hardBlue underline text-center text-sm my-2"
         >
           Editar mi perfil

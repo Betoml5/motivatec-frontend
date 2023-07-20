@@ -31,7 +31,7 @@ const Post = ({ post }) => {
         </div>
         <div>
           <p className="text-gray-400 text-xs">
-            {post.user.student.name} {post.user.student.lastName}
+            {post.user.entity.name} {post.user.entity.lastName}
           </p>
         </div>
         <div className="post__user-date-time text-xs">

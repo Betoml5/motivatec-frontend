@@ -1,8 +1,10 @@
 import { UserClient } from "./axios";
 
-export const getPostsAPI = async ({ limit = 10 }) => {
+export const getPostsAPI = async ({ pageSize = 10, pageNumber = 1 }) => {
   try {
-    const response = await UserClient.get(`/post?limit=${limit}`);
+    const response = await UserClient.get(
+      `/post?pageSize=${pageSize}&pageNumber=${pageNumber}`
+    );
     if (response.status !== 200) throw new Error("Error");
     return response.data.body;
   } catch (error) {
@@ -26,7 +28,7 @@ export const createPostAPI = async (post) => {
     const response = await UserClient.post("/post", {
       post: post,
     });
-    if (response.status !== 201) throw new Error("Error");
+    if (response.status !== 201) throw new Error("Internal Server Error");
     return response.data.body;
   } catch (error) {
     throw new Error(error);

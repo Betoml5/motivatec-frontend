@@ -31,6 +31,7 @@ import NotFound from "./screens/NotFound";
 import AdminLayout from "./layouts/AdminLayout";
 import initAxiosInterceptors from "./services/axios/auth-helpers";
 import StudentDetails from "./screens/shared/StudentDetails";
+import EditStudent from "./screens/student/Edit";
 
 function App() {
   initAxiosInterceptors();
@@ -84,6 +85,7 @@ function App() {
         >
           <Route path="" element={<StudentDashboard />} />
           <Route path="survey" element={<SurveyForm />} />
+          <Route path="edit/:id" element={<EditStudent />} />
           <Route path="settings" element={<StudentSettings />} />
         </Route>
 
