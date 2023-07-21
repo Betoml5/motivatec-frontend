@@ -11,6 +11,7 @@ import {
   createDailySurveyAPI,
 } from "../../services/dailySurvey";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 const Dashboard = () => {
   const { user } = useUser();
@@ -21,12 +22,20 @@ const Dashboard = () => {
     "surveyDone",
     checkIsSurveyDoneAPI
   );
-  console.log(survey);
   const { data: posts, isLoading: isLoadingPosts } = useQuery("posts", () =>
-    getPostsAPI({ limit: 5 })
+    getPostsAPI({ pageSize: 5, pageNumber: 1 })
   );
-  const { mutate: sendDailySurvey } = useMutation("survey", (survey) =>
-    createDailySurveyAPI(survey)
+  const { mutate: sendDailySurvey } = useMutation(
+    "survey",
+    (survey) => createDailySurveyAPI(survey),
+    {
+      onSuccess: () => {
+        toast.success("Encuesta enviada");
+      },
+      onError: () => {
+        toast.error("Error al enviar la encuesta");
+      },
+    }
   );
 
   const {
