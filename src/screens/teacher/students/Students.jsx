@@ -3,8 +3,11 @@ import { Link } from "react-router-dom";
 import { deleteStudentAPI, getStudentsAPI } from "../../../services/student";
 
 import { toast } from "react-toastify";
+import { searchFilter } from "../../../utils/search";
+import { useState } from "react";
 
 const Students = () => {
+  const [query, setQuery] = useState("");
   const {
     data: students,
     isLoading,
@@ -36,17 +39,36 @@ const Students = () => {
     }
   };
 
+  const onChange = (e) => {
+    const { value } = e.target;
+    setQuery(value);
+  };
+
+  const filtered = searchFilter(students, query);
+
   return (
     <section className="flex flex-col p-4">
-      <div className="flex  self-end">
-        <Link className="btn" to="/teacher/students/register">
-          Agregar estudiante
-        </Link>
-        <Link className="btn ml-2" to="/teacher/students/import">
-          Importar estudiantes
-        </Link>
+      <div className="flex flex-col w-full md:flex-row md:justify-between md:items-center">
+        <div className="flex flex-col mb-4 md:m-0 md:w-1/3">
+          <label htmlFor="query">Buscador</label>
+          <input
+            onChange={onChange}
+            className="input "
+            type="text"
+            placeholder="Numero de control, nombre, apellido o grupo"
+          />
+        </div>
+        <div className=" self-end">
+          <Link className="btn" to="/teacher/students/register">
+            Agregar estudiante
+          </Link>
+          <Link className="btn ml-2" to="/teacher/students/import">
+            Importar estudiantes
+          </Link>
+        </div>
       </div>
-      <div className="overflow-x-auto">
+
+      <div className="overflow-x-auto ">
         <table className="w-full mt-4 text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -77,7 +99,7 @@ const Students = () => {
                 <td>Error al cargar los estudiantes</td>
               </tr>
             ) : (
-              students?.map((student) => (
+              filtered?.map((student) => (
                 <tr
                   key={student.id}
                   className="bg-white border-b dark:bg-gray-900 dark:border-gray-700"

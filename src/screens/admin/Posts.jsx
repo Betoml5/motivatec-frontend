@@ -13,6 +13,7 @@ const Posts = () => {
     isLoading,
     refetch,
   } = useQuery("posts", getPostsAPI);
+  console.log(posts);
   const { mutate: deletePosts } = useMutation(
     "deletePosts",
     (ids) => deleteManyPostsAPI(ids),
@@ -128,7 +129,7 @@ const Posts = () => {
                   <td className="py-4 px-6">{post.id}</td>
                   <td className="py-4 px-6">{post.title}</td>
                   <td className="py-4 px-6 truncate">
-                    {post.user.student.name} {post.user.student.lastName}
+                    {post.user.entity.name} {post.user.entity.lastName}
                   </td>
 
                   <td className="py-4 px-6">

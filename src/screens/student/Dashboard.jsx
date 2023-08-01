@@ -23,14 +23,16 @@ const Dashboard = () => {
     checkIsSurveyDoneAPI
   );
   const { data: posts, isLoading: isLoadingPosts } = useQuery("posts", () =>
-    getPostsAPI({ pageSize: 5, pageNumber: 1 })
+    getPostsAPI({ pageNumber: 1, pageSize: 5 })
   );
+
   const { mutate: sendDailySurvey } = useMutation(
     "survey",
     (survey) => createDailySurveyAPI(survey),
     {
       onSuccess: () => {
         toast.success("Encuesta enviada");
+        refetchDailySurvey();
       },
       onError: () => {
         toast.error("Error al enviar la encuesta");
@@ -185,12 +187,12 @@ const Dashboard = () => {
         <div className="my-4 md:m-0 md:col-span-full lg:col-span-full  xl:col-span-4 ">
           <h3 className="text-xl">Ultimos posts</h3>
           <div>
-            {posts?.length === 0 ? (
+            {posts?.postList?.length === 0 ? (
               <p className="mt-4">No hay posts para mostrar</p>
             ) : isLoadingPosts ? (
               <SmallSpinner />
             ) : (
-              posts.map((post) => <Post key={post.id} post={post} />)
+              posts?.postList?.map((post) => <Post key={post.id} post={post} />)
             )}
           </div>
         </div>

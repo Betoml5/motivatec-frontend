@@ -20,6 +20,7 @@ import { default as StudentsAdmin } from "./screens/admin/Students";
 import { default as TeachersAdmin } from "./screens/admin/Teachers";
 import { default as PostsAdmin } from "./screens/admin/Posts";
 import { default as SettingsAdmin } from "./screens/admin/Settings";
+import { default as GroupsAdmin } from "./screens/admin/Groups";
 
 import StudentEdit from "./screens/shared/StudentEdit";
 import StudentLayout from "./layouts/StudentLayout";
@@ -103,6 +104,7 @@ function App() {
           <Route path="students" element={<StudentsAdmin />} />
           <Route path="teachers" element={<TeachersAdmin />} />
           <Route path="posts" element={<PostsAdmin />} />
+          <Route path="groups" element={<GroupsAdmin />} />
           <Route path="settings" element={<SettingsAdmin />} />
         </Route>
 

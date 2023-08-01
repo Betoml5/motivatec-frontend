@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { replyTypes } from "../utils/replyType";
-const Questions = ({ questions, repliedQuestions, onSelect }) => {
+const Questions = ({ questions, repliedQuestions, onSelect, onSubmit }) => {
   return (
     <div className="bg-white max-w-3xl mx-auto rounded-md p-6 my-4 ">
       <section className="text-black mb-4">
@@ -52,7 +52,14 @@ const Questions = ({ questions, repliedQuestions, onSelect }) => {
           })}
         </div>
       ))}
-      <button className="bg-secondary text-white rounded-md p-2 hover:opacity-90">
+      <button
+        disabled={
+          repliedQuestions.length !== questions.length ||
+          repliedQuestions.length === 0
+        }
+        onClick={() => onSubmit()}
+        className="mt-4 bg-secondary text-white rounded-md p-2 hover:opacity-90 disabled:opacity-50"
+      >
         Enviar resultados
       </button>
     </div>
@@ -74,6 +81,7 @@ Questions.propTypes = {
     })
   ).isRequired,
   onSelect: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.bool.isRequired,
   repliedQuestions: PropTypes.arrayOf(

@@ -1,12 +1,33 @@
 import PropTypes from "prop-types";
+import { useEffect } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 
 const Modal = ({ children, show, setShow }) => {
+  const handleEscapeKeyPress = (event) => {
+    if (event.key === "Escape") {
+      setShow(false);
+    }
+  };
+
+  const handleBackdropClick = (event) => {
+    if (event.target === event.currentTarget) {
+      setShow(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleEscapeKeyPress);
+    return () => {
+      document.removeEventListener("keydown", handleEscapeKeyPress);
+    };
+  }, []);
+
   return (
     <div
+      onClick={handleBackdropClick}
       className={` ${
         !show && "hidden"
-      }  opacity-100 fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 transition-opacity`}
+      }  opacity-100 fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 transition-opacity `}
     >
       <button
         onClick={() => setShow(false)}

@@ -9,7 +9,7 @@ import Modal from "../shared/Modal";
 import Comments from "../../containers/forum/Comments";
 
 import { PiStudentThin } from "react-icons/pi";
-import { AiOutlineClockCircle } from "react-icons/ai";
+import { AiOutlineClockCircle, AiOutlineComment } from "react-icons/ai";
 
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.bubble.css";
@@ -82,9 +82,28 @@ const PostDetails = () => {
           theme={"bubble"}
         />
         <Modal show={showComments} setShow={setShowComments}>
-          <div className="relative bg-white w-full max-w-7xl mx-2 rounded-md">
+          <div className=" bg-white w-full max-w-7xl mx-2 rounded-md">
             {post.comments.length > 0 ? (
-              <Comments comments={post.comments} />
+              <>
+                <Comments comments={post.comments} />
+                <div className="flex text-sm m-4">
+                  <p>
+                    <span className="flex items-center font-semibold">
+                      <AiOutlineComment size={15} className="mr-2" />
+                      {post.comments.length} comentarios
+                    </span>
+                  </p>
+                  <button
+                    onClick={() => {
+                      setShowComments(false);
+                      setShowCreateComment(true);
+                    }}
+                    className="ml-4 hover:underline"
+                  >
+                    Hacer comentario
+                  </button>
+                </div>
+              </>
             ) : (
               <div className="text-center p-4">
                 <p className=" text-gray-500  ">No hay comentarios</p>

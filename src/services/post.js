@@ -1,13 +1,14 @@
 import { UserClient } from "./axios";
 
-export const getPostsAPI = async ({ pageSize = 10, pageNumber = 1 }) => {
+export const getPostsAPI = async ({ pageNumber = 1, pageSize = 10 }) => {
   try {
     const response = await UserClient.get(
-      `/post?pageSize=${pageSize}&pageNumber=${pageNumber}`
+      `/post?pageNumber=${pageNumber}&pageSize=${pageSize}`
     );
     if (response.status !== 200) throw new Error("Error");
     return response.data.body;
   } catch (error) {
+    console.log(error);
     throw new Error(error);
   }
 };

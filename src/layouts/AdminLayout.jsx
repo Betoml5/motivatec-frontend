@@ -4,7 +4,7 @@ import useAuth from "../hooks/useAuth";
 import { useState } from "react";
 import { CiSettings } from "react-icons/ci";
 import { PiChalkboardTeacherThin, PiStudentThin } from "react-icons/pi";
-import { MdOutlineForum } from "react-icons/md";
+import { MdOutlineForum, MdGroups2 } from "react-icons/md";
 
 const AdminLayout = () => {
   const { signout } = useAuth();
@@ -40,6 +40,10 @@ const AdminLayout = () => {
         <Link className="sidebar__item" to="/admin/posts">
           <MdOutlineForum className="sidebar__item-icon" size={30} />
           Posts
+        </Link>
+        <Link className="sidebar__item" to="/admin/groups">
+          <MdGroups2 className="sidebar__item-icon" size={30} />
+          Grupos
         </Link>
         <Link></Link>
         <Link className="sidebar__item" to="/admin/settings">
