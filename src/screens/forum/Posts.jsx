@@ -15,8 +15,6 @@ const Posts = () => {
     enabled: false,
   });
 
-  // refetch if pageNumber changes
-
   useEffect(() => {
     refetch();
   }, [page]);
@@ -45,7 +43,11 @@ const Posts = () => {
             >
               Anterior
             </button>
-            <button className="btn" onClick={() => setPage(page + 1)}>
+            <button
+              disabled={page === posts?.totalPages}
+              className="btn disabled:opacity-50 disabled:cursor-not-allowed"
+              onClick={() => setPage(page + 1)}
+            >
               Siguiente
             </button>
           </div>
