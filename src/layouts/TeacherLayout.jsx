@@ -9,11 +9,12 @@ import {
 } from "react-icons/ai";
 import { PiStudentLight } from "react-icons/pi";
 import { CiSettings } from "react-icons/ci";
+import { MdOutlineForum } from "react-icons/md";
 import { useState } from "react";
 import useAuth from "../hooks/useAuth";
 
 const TeacherLayout = () => {
-  const { signout } = useAuth();
+  const { signout, user } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -22,7 +23,7 @@ const TeacherLayout = () => {
         <button className="mr-4" onClick={() => setSidebarOpen(!sidebarOpen)}>
           <AiOutlineMenu className="sidebar__item-icon" size={30} />
         </button>
-        <h3>Maestro</h3>
+        <h3>Maestro - {user.name}</h3>
       </header>
       <nav
         className={`flex flex-col sidebar  ${
@@ -40,7 +41,11 @@ const TeacherLayout = () => {
           <PiStudentLight className="sidebar__item-icon" size={30} />
           Estudiantes
         </Link>
-        <Link className="sidebar__item" to="estadisticas">
+        <Link className="sidebar__item" to="/forum">
+          <MdOutlineForum className="sidebar__item-icon" size={30} />
+          Foro
+        </Link>
+        <Link className="sidebar__item" to="statistics">
           <AiOutlinePieChart className="sidebar__item-icon" size={30} />
           Estadisticas
         </Link>

@@ -1,25 +1,40 @@
 @tailwind base;
 @tailwind components;
 
+html {
+  background-color: #e6e6e6;
+  font-family: "Montserrat", sans-serif;
+}
+
+.truncate-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 @layer components {
+  .form {
+    @apply flex flex-col p-4;
+  }
+
   .container {
     @apply max-w-7xl mx-auto px-4;
   }
 
   .btn {
-    @apply border border-gray-400 rounded py-2 px-4 my-2 hover:bg-gray-500 hover:text-white transition;
+    @apply bg-blue-500 text-white rounded py-2 px-4 my-2 hover:opacity-80 hover:text-white transition;
   }
 
   .header {
-    @apply flex items-center  bg-secondary text-black p-4;
+    @apply flex items-center  bg-secondary text-white p-4;
   }
 
   .sidebar {
-    @apply bg-secondary top-0 text-black font-bold py-2 px-4 transition-all absolute w-64 duration-300 h-screen;
+    @apply bg-secondary top-0 text-white font-bold py-2 px-4 transition-all absolute w-64 duration-200 h-screen z-[100];
   }
 
   .sidebar__item {
-    @apply flex items-center text-black font-normal py-2 px-4 my-2;
+    @apply flex items-center text-white font-normal py-2 px-4 my-2;
   }
 
   .sidebar__item-icon {
@@ -36,6 +51,30 @@
 
   .form__student {
     @apply flex flex-col;
+  }
+
+  .post {
+    @apply rounded-md bg-white  text-black p-4 my-2 max-h-60;
+  }
+
+  .post__user-data {
+    @apply flex items-center ml-4 mt-4;
+  }
+
+  .post__content {
+    @apply ml-6;
+  }
+
+  .post__content-text {
+    @apply h-32;
+  }
+
+  .post__user-date-time {
+    @apply flex items-center mx-4 text-gray-400;
+  }
+
+  .dashboard {
+    @apply p-4;
   }
 }
 
