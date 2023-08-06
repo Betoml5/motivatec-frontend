@@ -1,11 +1,12 @@
-import { useQuery } from "react-query";
+import Post from "../../components/forum/Post";
+import SmallSpinner from "../../components/loading/SmallSpinner";
 import Spinner from "../loading/Spinner";
 import useUser from "../../hooks/useUser";
+import { useQuery } from "react-query";
 import { getRandomAdviceAPI } from "../../services/advice";
 import { getStudentsAPI } from "../../services/student";
 import { getPostsAPI } from "../../services/post";
-import Post from "../../components/forum/Post";
-import SmallSpinner from "../../components/loading/SmallSpinner";
+
 const Dashboard = () => {
   const { user } = useUser();
   const { data, isLoading } = useQuery("advice", getRandomAdviceAPI, {
@@ -17,7 +18,7 @@ const Dashboard = () => {
   );
 
   const { data: posts, isLoading: isLoadingPosts } = useQuery("posts", () =>
-    getPostsAPI({ limit: 5 })
+    getPostsAPI({ pageSize: 5 })
   );
 
   if (!user) return <Spinner />;
@@ -91,12 +92,12 @@ const Dashboard = () => {
         <div className="md:col-span-full lg:col-span-5 lg:col-start-6">
           <h3 className="text-xl">Ultimos posts</h3>
           <div>
-            {posts?.length === 0 ? (
+            {posts?.postList.length === 0 ? (
               <p className="mt-4">No hay posts para mostrar</p>
             ) : isLoadingPosts ? (
               <SmallSpinner />
             ) : (
-              posts.map((post) => <Post key={post.id} post={post} />)
+              posts.postList.map((post) => <Post key={post.id} post={post} />)
             )}
           </div>
         </div>

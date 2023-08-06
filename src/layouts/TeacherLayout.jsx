@@ -45,7 +45,7 @@ const TeacherLayout = () => {
           <MdOutlineForum className="sidebar__item-icon" size={30} />
           Foro
         </Link>
-        <Link className="sidebar__item" to="estadisticas">
+        <Link className="sidebar__item" to="statistics">
           <AiOutlinePieChart className="sidebar__item-icon" size={30} />
           Estadisticas
         </Link>

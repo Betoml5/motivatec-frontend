@@ -9,6 +9,7 @@ import Home from "./screens/Home";
 import Survey from "./screens/teacher/Survey";
 import Students from "./screens/teacher/students/Students";
 import Register from "./screens/teacher/students/Register";
+import Statistics from "./screens/teacher/Statistics";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 import { default as SurveyForm } from "./screens/student/Survey";
@@ -32,7 +33,7 @@ import NotFound from "./screens/NotFound";
 import AdminLayout from "./layouts/AdminLayout";
 import initAxiosInterceptors from "./services/axios/auth-helpers";
 import StudentDetails from "./screens/shared/StudentDetails";
-import EditStudent from "./screens/student/Edit";
+// import EditStudent from "./screens/student/Edit";
 
 function App() {
   initAxiosInterceptors();
@@ -71,6 +72,7 @@ function App() {
           <Route path="students/register" element={<Register />} />
           <Route path="students/:id" element={<StudentDetails />} />
           <Route path="students/edit/:id" element={<StudentEdit />} />
+          <Route path="statistics" element={<Statistics />} />
           <Route path="settings" element={<TeacherSettings />} />
         </Route>
 
@@ -86,7 +88,7 @@ function App() {
         >
           <Route path="" element={<StudentDashboard />} />
           <Route path="survey" element={<SurveyForm />} />
-          <Route path="edit/:id" element={<EditStudent />} />
+          {/* <Route path="edit/:id" element={<EditStudent />} /> */}
           <Route path="settings" element={<StudentSettings />} />
         </Route>
 
