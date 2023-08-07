@@ -22,6 +22,7 @@ const Dashboard = () => {
     "surveyDone",
     checkIsSurveyDoneAPI
   );
+
   const { data: posts, isLoading: isLoadingPosts } = useQuery("posts", () =>
     getPostsAPI({ pageNumber: 1, pageSize: 5 })
   );

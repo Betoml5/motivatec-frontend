@@ -8,10 +8,8 @@ import Spinner from "../../screens/loading/Spinner";
 import Questions from "../../containers/Questions";
 
 const Survey = () => {
-  const { data: isDone, isLoading } = useQuery(
-    "checkSurvey",
-    checkIsSurveyDoneAPI
-  );
+  const { data, isLoading } = useQuery("checkSurvey", checkIsSurveyDoneAPI);
+
   const [repliedQuestions, setRepliedQuestions] = useState([]);
   const { mutate } = useMutation(
     "createSurvey",
@@ -59,7 +57,7 @@ const Survey = () => {
 
   if (isLoading) return <Spinner />;
 
-  if (isDone) {
+  if (data.isDone) {
     return (
       <div className="flex flex-col items-center justify-center h-full">
         <h1 className="text-2xl  my-20">

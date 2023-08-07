@@ -73,6 +73,9 @@ const Students = () => {
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" className="py-3 px-6">
+                Numero de control
+              </th>
+              <th scope="col" className="py-3 px-6">
                 Nombre
               </th>
               <th scope="col" className="py-3 px-6">
@@ -104,6 +107,7 @@ const Students = () => {
                   key={student.id}
                   className="bg-white border-b dark:bg-gray-900 dark:border-gray-700"
                 >
+                  <td className="py-4 px-6">{student.controlNumber}</td>
                   <td className="py-4 px-6">{student.name}</td>
                   <td className="py-4 px-6">{student.lastName}</td>
                   <td className="py-4 px-6">{student.group.name}</td>
