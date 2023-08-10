@@ -6,47 +6,24 @@ import {
   PolarAngleAxis,
   PolarRadiusAxis,
   ResponsiveContainer,
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
 } from "recharts";
-import { getResultsAPI } from "../../services/statistics";
-
-// const data = [
-//   {
-//     subject: "Bajo",
-//     A: 120,
-//     B: 110,
-//     fullMark: 150,
-//   },
-//   {
-//     subject: "Medio Bajo",
-//     A: 98,
-//     B: 130,
-//     fullMark: 150,
-//   },
-//   {
-//     subject: "Medio",
-//     A: 86,
-//     B: 130,
-//     fullMark: 150,
-//   },
-//   {
-//     subject: "Medio Alto",
-//     A: 99,
-//     B: 100,
-//     fullMark: 150,
-//   },
-//   {
-//     subject: "Alto",
-//     A: 85,
-//     B: 90,
-//     fullMark: 150,
-//   },
-// ];
+import { getDailyByMonthAPI, getResultsAPI } from "../../services/statistics";
 
 const subjects = ["Desmotivación", "Motivación interna", "Motivación externa"];
-
 const Statistics = () => {
   const { data: results, isLoading } = useQuery("results", getResultsAPI);
-  const getData = (item) => {
+  const { data: dailyResults, isLoading: isDailyLoading } = useQuery(
+    "dailyByMonth",
+    getDailyByMonthAPI
+  );
+
+  const getResultsData = (item) => {
     const data = Object.entries(item).map((item) => {
       return {
         subject: item[0],
@@ -57,12 +34,14 @@ const Statistics = () => {
     delete item.key;
     return data;
   };
+
   if (isLoading) return <div>Loading...</div>;
+  if (isDailyLoading) return <div>Loading...</div>;
 
   return (
     <div className="grid grid-cols-1  gap-4 m-4 md:grid-cols-2 md:p-10 lg:grid-cols-3 ">
       {results.map((item, index) => {
-        const data = getData(item);
+        const data = getResultsData(item);
         return (
           <div key={index} className="bg-white rounded-md py-4 shadow-md ">
             <h1 className="text-2xl text-center ">{subjects[index]}</h1>
@@ -85,6 +64,37 @@ const Statistics = () => {
                   fillOpacity={0.6}
                 />
               </RadarChart>
+            </ResponsiveContainer>
+          </div>
+        );
+      })}
+      {dailyResults.map((item) => {
+        return (
+          <div
+            key={item.emotion}
+            className="lg:col-span-1 bg-white rounded-md py-4 shadow-md max-w-4xl"
+          >
+            <h1 className="text-2xl text-center ">{item.emotion}</h1>
+            <ResponsiveContainer width="100%" aspect={2}>
+              <AreaChart
+                data={item.results.map((item) => {
+                  return {
+                    name: item.month.name, // Mes en el eje X
+                    total: item.total, // Valor del eje Y
+                  };
+                })}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Area
+                  type="monotone"
+                  dataKey="total"
+                  stroke="#6aa6f9"
+                  fill="#6aa6f9"
+                />
+              </AreaChart>
             </ResponsiveContainer>
           </div>
         );
