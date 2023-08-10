@@ -3,7 +3,6 @@ import { Outlet, Link } from "react-router-dom";
 import {
   AiOutlineMenu,
   AiOutlinePieChart,
-  AiOutlineLink,
   AiOutlineHome,
   AiOutlineLogout,
 } from "react-icons/ai";
@@ -49,10 +48,7 @@ const TeacherLayout = () => {
           <AiOutlinePieChart className="sidebar__item-icon" size={30} />
           Estadisticas
         </Link>
-        <Link className="sidebar__item" to="/teacher/survey">
-          <AiOutlineLink className="sidebar__item-icon" size={30} />
-          Hacer encuesta
-        </Link>
+
         <Link className="sidebar__item" to="/teacher/settings">
           <CiSettings className="sidebar__item-icon" size={30} />
           Mi cuenta

@@ -15,7 +15,7 @@ import {
 } from "recharts";
 import { getDailyByMonthAPI, getResultsAPI } from "../../services/statistics";
 
-const subjects = ["Desmotivación", "Motivación interna", "Motivación externa"];
+const subjects = ["Amotivación", "Motivación interna", "Motivación externa"];
 const Statistics = () => {
   const { data: results, isLoading } = useQuery("results", getResultsAPI);
   const { data: dailyResults, isLoading: isDailyLoading } = useQuery(

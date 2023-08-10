@@ -8,7 +8,6 @@ export const getPostsAPI = async ({ pageNumber = 1, pageSize = 10 }) => {
     if (response.status !== 200) throw new Error("Error");
     return response.data.body;
   } catch (error) {
-    console.log(error);
     throw new Error(error);
   }
 };

@@ -6,7 +6,6 @@ import TeacherLayout from "./layouts/TeacherLayout";
 import MainLayout from "./layouts/MainLayout";
 
 import Home from "./screens/Home";
-import Survey from "./screens/teacher/Survey";
 import Students from "./screens/teacher/students/Students";
 import Register from "./screens/teacher/students/Register";
 import Statistics from "./screens/teacher/Statistics";
@@ -67,7 +66,6 @@ function App() {
           }
         >
           <Route path="" element={<Dashboard />} />
-          <Route path="survey" element={<Survey />} />
           <Route path="students" element={<Students />} />
           <Route path="students/register" element={<Register />} />
           <Route path="students/:id" element={<StudentDetails />} />

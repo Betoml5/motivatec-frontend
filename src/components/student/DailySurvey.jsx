@@ -40,8 +40,11 @@ const DailySurvey = () => {
       <h3 className="text-xl my-4 md:my-0 md:mb-4">¿Comó te sientes hoy?</h3>
 
       {survey?.isDone && (
-        <div className="bg-green-300 p-4 rounded-md my-4">
-          <p>Ya has realizado la encuesta de hoy</p>
+        <div className="bg-white p-4 rounded-md my-4">
+          <p>
+            Ya has realizado la encuesta de hoy. Gracias por contestar.{" "}
+            <span className="font-semibold">¡Tu puedes! 🦅</span>
+          </p>
         </div>
       )}
 
@@ -51,7 +54,7 @@ const DailySurvey = () => {
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="flex flex-col gap-y-3">
-          <div className="flex items-center gap-x-2 bg-yellow-300 p-4 rounded-md">
+          <div className="flex items-center gap-x-2 bg-white p-4 rounded-md shadow-md">
             <input
               disabled={survey?.isDone}
               type="radio"
@@ -63,7 +66,7 @@ const DailySurvey = () => {
             />
             <label htmlFor="happy">Feliz</label>
           </div>
-          <div className="flex items-center gap-x-2 bg-purple-300 p-4 rounded-md">
+          <div className="flex items-center gap-x-2 bg-white p-4 rounded-md shadow-md">
             <input
               disabled={survey?.isDone}
               type="radio"
@@ -75,7 +78,7 @@ const DailySurvey = () => {
             />
             <label htmlFor="sad">Triste</label>
           </div>
-          <div className="flex items-center gap-x-2 bg-red-300 p-4 rounded-md">
+          <div className="flex items-center gap-x-2 bg-white p-4 rounded-md shadow-md">
             <input
               disabled={survey?.isDone}
               type="radio"
@@ -87,7 +90,7 @@ const DailySurvey = () => {
             />
             <label htmlFor="angry">Enojado</label>
           </div>
-          <div className="flex items-center gap-x-2 bg-gray-400 p-4 rounded-md">
+          <div className="flex items-center gap-x-2 bg-white p-4 rounded-md shadow-md">
             <input
               disabled={survey?.isDone}
               type="radio"
@@ -99,8 +102,9 @@ const DailySurvey = () => {
             />
             <label htmlFor="tired">Cansado</label>
           </div>
-          <div className="flex items-center gap-x-2 bg-blue-400 p-4 rounded-md">
+          <div className="flex items-center gap-x-2 bg-white p-4 rounded-md shadow-md">
             <input
+              disabled={survey?.isDone}
               type="radio"
               name="feeling"
               id="anxious"
