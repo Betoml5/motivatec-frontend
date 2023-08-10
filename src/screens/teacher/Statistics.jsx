@@ -14,8 +14,8 @@ import {
   Tooltip,
 } from "recharts";
 import { getDailyByMonthAPI, getResultsAPI } from "../../services/statistics";
+import { MOTIVATION_TYPES } from "../../utils/consts";
 
-const subjects = ["Amotivación", "Motivación interna", "Motivación externa"];
 const Statistics = () => {
   const { data: results, isLoading } = useQuery("results", getResultsAPI);
   const { data: dailyResults, isLoading: isDailyLoading } = useQuery(
@@ -44,14 +44,8 @@ const Statistics = () => {
         const data = getResultsData(item);
         return (
           <div key={index} className="bg-white rounded-md py-4 shadow-md ">
-            <h1 className="text-2xl text-center ">{subjects[index]}</h1>
-            <ResponsiveContainer
-              width="100%"
-              height="100%"
-              aspect={2}
-
-              // className="row-start-2"
-            >
+            <h1 className="text-2xl text-center ">{MOTIVATION_TYPES[index]}</h1>
+            <ResponsiveContainer width="100%" height="100%" aspect={2}>
               <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
                 <PolarGrid />
                 <PolarAngleAxis dataKey="subject" />
