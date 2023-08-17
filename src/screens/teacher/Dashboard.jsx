@@ -48,16 +48,15 @@ const Dashboard = () => {
   return (
     <div className="dashboard md:mx-20 md:my-6">
       <h2 className="text-2xl">Bienvenido, {user.name}</h2>
-
       <div className="dashboard__container grid grid-cols-1 md:grid-cols-8 md:gap-4">
         <div className="md:col-span-4 lg:col-span-2">
           <h3 className="mt-4 md:m-0 text-xl">Consejo rapido: </h3>
-          <div className="bg-[#393E46] p-4 rounded-md text-white my-4 ">
+          <div className="bg-[#393E46] p-4 rounded-md text-white my-4 shadow-md">
             <p>{isLoading ? "Cargando..." : `"${data.slip.advice}"`}</p>
           </div>
           <Articles />
           <div className="flex items-center">
-            <p className="text-lg my-4 mr-2"> Emociones de tus estudiantes </p>
+            <p className="text-lg my-4 mr-2">Emociones de tus estudiantes </p>
             <HiQuestionMarkCircle
               size={20}
               color="#999999"

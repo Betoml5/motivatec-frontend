@@ -15,9 +15,14 @@ import {
 } from "recharts";
 import { getDailyByMonthAPI, getResultsAPI } from "../../services/statistics";
 import { MOTIVATION_TYPES } from "../../utils/consts";
+import { getStudentsAPI } from "../../services/student";
+import { getTotalResultsAPI } from "../../services/result";
 
 const Statistics = () => {
   const { data: results, isLoading } = useQuery("results", getResultsAPI);
+  const { data: resultsLength } = useQuery("resultsLength", getTotalResultsAPI);
+
+  const { data: students } = useQuery("students", getStudentsAPI);
   const { data: dailyResults, isLoading: isDailyLoading } = useQuery(
     "dailyByMonth",
     getDailyByMonthAPI
@@ -40,6 +45,16 @@ const Statistics = () => {
 
   return (
     <div className="grid grid-cols-1  gap-4 m-4 md:grid-cols-2 md:p-10 lg:grid-cols-3 ">
+      <div className="flex flex-wrap gap-4 mt-4 col-span-full">
+        <div className="px-6 py-8 rounded-md bg-white flex-grow  h-40 shadow-md ">
+          <p className="font-semibold text-xl mb-6">Alumnos </p>
+          <p className="text-3xl font-bold ">{students.length}</p>
+        </div>
+        <div className="px-6 py-8 rounded-md bg-white flex-grow  h-40 shadow-md ">
+          <p className="font-semibold text-xl mb-6">Encuestas contestadas </p>
+          <p className="text-3xl font-bold ">{resultsLength.length}</p>
+        </div>
+      </div>
       {results.map((item, index) => {
         const data = getResultsData(item);
         return (
