@@ -1,7 +1,9 @@
 import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL;
+const ENV = import.meta.env.VITE_ENV;
 
 export const AuthClient = axios.create({
-  baseURL: "http://localhost:3000/api",
+  baseURL: `${ENV === "production" ? API_URL : "http://localhost:3000/api"}`,
   headers: {
     "Content-Type": "application/json",
   },
@@ -9,7 +11,7 @@ export const AuthClient = axios.create({
 });
 
 export const UserClient = axios.create({
-  baseURL: "http://localhost:3000/api",
+  baseURL: `${ENV === "production" ? API_URL : "http://localhost:3000/api"}`,
   headers: {
     "Content-Type": "application/json",
   },
@@ -17,7 +19,7 @@ export const UserClient = axios.create({
 });
 
 export const ConfigClient = axios.create({
-  baseURL: "http://localhost:3000/api",
+  baseURL: `${ENV === "production" ? API_URL : "http://localhost:3000/api"}`,
   headers: {
     "Content-Type": "application/json",
   },
