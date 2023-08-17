@@ -1,5 +1,5 @@
-import PropTypes from "prop-types";
 import {
+  createStudentAPI,
   deleteManyStudentsAPI,
   deleteStudentAPI,
   getStudentsAPI,
@@ -9,6 +9,9 @@ import { Link } from "react-router-dom";
 import Spinner from "../loading/Spinner";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import Modal from "../../components/shared/Modal";
+import { useForm } from "react-hook-form";
+import { getGroupsAPI } from "../../services/group";
 
 const Students = () => {
   const {
@@ -18,6 +21,7 @@ const Students = () => {
     refetch,
   } = useQuery("students", getStudentsAPI);
   const [selectedStudents, setSelectedStudents] = useState([]);
+  const [show, setShow] = useState(false);
 
   const { mutate: deleteStudent } = useMutation(
     "deleteStudent",
@@ -63,27 +67,153 @@ const Students = () => {
       setSelectedStudents(selectedStudents.filter((student) => student !== id));
     }
   };
+  const { data: groups } = useQuery("groups", getGroupsAPI);
+  const { isLoading: studentIsLoading, mutate } = useMutation(
+    "registerStudent",
+    (student) => createStudentAPI(student),
+    {
+      onMutate: () => toast.info("Guardando cambios"),
+      onSettled: (data, error) => {
+        if (error) {
+          toast.error("Error al guardar los cambios");
+        }
+        if (data) {
+          toast.success("Cambios guardados");
+          reset();
+        }
+      },
+    }
+  );
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (student) => {
+    mutate(student);
+  };
 
   if (isLoading) return <Spinner />;
   if (error) return <div>Error al obtener los alumnos</div>;
 
   return (
     <section className="flex flex-col p-4">
-      <div className="flex flex-col md:flex-row  md:self-end">
-        <Link className="btn text-center" to="/teacher/students/register">
-          Agregar estudiante
-        </Link>
-        <Link className="btn text-center md:ml-2" to="/teacher/students/import">
-          Importar estudiantes
-        </Link>
+      <Modal setShow={setShow} show={show}>
+        <div className="bg-white mt-4 w-1/3  mx-auto p-4 rounded-md">
+          <form
+            id="form__student"
+            className="form__student"
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <label className="label" htmlFor="name">
+              Nombre
+            </label>
+            <input
+              className="input"
+              id="name"
+              type="text"
+              placeholder="Nombre"
+              name="name"
+              required
+              {...register("name", { required: true })}
+            ></input>
+            {errors.name && (
+              <span className="text-red-500 text-sm">
+                Este campo es obligatorio
+              </span>
+            )}
+            <label className="label" htmlFor="lastName">
+              Apellidos
+            </label>
+            <input
+              className="input"
+              id="lastName"
+              type="text"
+              name="lastName"
+              placeholder="Apellidos"
+              required
+              {...register("lastName", { required: true })}
+            ></input>
+            {errors.lastName && (
+              <span className="text-red-500 text-sm">
+                Este campo es obligatorio
+              </span>
+            )}
+
+            <label className="label" htmlFor="controlNumber">
+              Numero de control
+            </label>
+            <input
+              className="input"
+              id="controlNumber"
+              type="text"
+              name="controlNumber"
+              placeholder="Numero de control"
+              minLength={8}
+              required
+              {...register("controlNumber", { required: true, minLength: 8 })}
+            ></input>
+            {errors.controlNumber && (
+              <span className="text-red-500 text-sm">
+                Este campo es obligatorio
+              </span>
+            )}
+            <label className="label" htmlFor="group">
+              Grupo
+            </label>
+
+            {isLoading ? (
+              <p>Cargando...</p>
+            ) : error ? (
+              <p>Error al cargar los grupos</p>
+            ) : (
+              <select
+                className="input"
+                id="groupId"
+                type="text"
+                name="groupId"
+                placeholder="Grupo"
+                required
+                {...register("groupId", { required: true })}
+              >
+                <option value="" disabled selected>
+                  Selecciona un grupo
+                </option>
+                {groups?.map((group) => (
+                  <option key={group.id} value={group.id}>
+                    {group.name}
+                  </option>
+                ))}
+              </select>
+            )}
+            {errors.groupId && (
+              <span className="text-red-500 text-sm">
+                Este campo es obligatorio
+              </span>
+            )}
+
+            <button className="btn" type="submit">
+              {studentIsLoading ? "Cargando..." : "Registrar"}
+            </button>
+          </form>
+        </div>
+      </Modal>
+      <div className="flex items-center justify-end   ">
+        <button className="btn mr-2 text-center" onClick={() => setShow(true)}>
+          Agregar
+        </button>
+
+        <button
+          onClick={onDeleteStudents}
+          disabled={selectedStudents.length === 0}
+          className=" w-36 bg-red-500 py-2 px-2 text-white rounded-md disabled:opacity-50"
+        >
+          Eliminar
+        </button>
       </div>
-      <button
-        onClick={onDeleteStudents}
-        disabled={selectedStudents.length === 0}
-        className="self-end w-36 bg-red-500 py-2 px-2 text-white rounded-md disabled:opacity-50"
-      >
-        Eliminar
-      </button>
+
       <div className="overflow-x-auto">
         <table className="w-full mt-4 text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -161,10 +291,6 @@ const Students = () => {
       </div>
     </section>
   );
-};
-
-Students.propTypes = {
-  students: PropTypes.array.isRequired,
 };
 
 export default Students;

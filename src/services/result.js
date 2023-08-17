@@ -1,12 +1,12 @@
 import { UserClient } from "./axios";
 
-export const getResults = async () => {
+export const getTotalResultsAPI = async () => {
   try {
     const response = await UserClient.get("/result");
     if (response.status !== 200 && response.status !== 201) {
       throw new Error(response);
     }
-    return response.data;
+    return response.data.body;
   } catch (error) {
     throw new Error(error);
   }

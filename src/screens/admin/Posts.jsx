@@ -13,7 +13,7 @@ const Posts = () => {
     isLoading,
     refetch,
   } = useQuery("posts", getPostsAPI);
-  console.log(posts);
+
   const { mutate: deletePosts } = useMutation(
     "deletePosts",
     (ids) => deleteManyPostsAPI(ids),
@@ -114,7 +114,7 @@ const Posts = () => {
                 <td>Error al cargar los posts</td>
               </tr>
             ) : (
-              posts?.map((post) => (
+              posts.postList?.map((post) => (
                 <tr
                   key={post.id}
                   className="bg-white border-b dark:bg-gray-900 dark:border-gray-700"

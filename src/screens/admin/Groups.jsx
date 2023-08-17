@@ -20,6 +20,7 @@ const Groups = () => {
     register,
     formState: { errors },
     handleSubmit,
+    reset,
   } = useForm();
   const {
     data: groups,
@@ -64,6 +65,7 @@ const Groups = () => {
       onSuccess: () => {
         toast.success("Grupo creado");
         refetch();
+        reset();
       },
       onError: () => {
         toast.error("Error al crear grupo");

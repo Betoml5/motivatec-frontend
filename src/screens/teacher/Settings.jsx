@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import useUser from "../../hooks/useUser";
 import Spinner from "../loading/Spinner";
 import { PiStudentThin } from "react-icons/pi";
@@ -14,12 +14,12 @@ const Settings = () => {
         <div className="w-20 h-20 shadow rounded-full p-2 self-center">
           <PiStudentThin size={50} className="w-full h-full" />
         </div>
-        <Link
+        {/* <Link
           to="/edit"
           className="text-hardBlue underline text-center text-sm my-2"
         >
           Editar mi perfil
-        </Link>
+        </Link> */}
         <p className="font-semibold self-center my-2">
           {user.name} {user.lastName}
         </p>
