@@ -137,8 +137,8 @@ const TeachersTable = () => {
               name="controlNumber"
               {...register("controlNumber", {
                 required: true,
-                minLength: 6,
-                maxLength: 6,
+                minLength: 4,
+                maxLength: 4,
               })}
             />
             {errors.controlNumber && (
