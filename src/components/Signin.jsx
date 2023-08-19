@@ -34,7 +34,7 @@ const Signin = () => {
           type="text"
           id="email"
           placeholder="Correo electronico"
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value.toLowerCase())}
         />
         <label htmlFor="password">Contraseña</label>
         <input

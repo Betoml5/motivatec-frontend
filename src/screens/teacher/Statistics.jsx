@@ -44,7 +44,7 @@ const Statistics = () => {
   if (isDailyLoading) return <div>Loading...</div>;
 
   return (
-    <div className="grid grid-cols-1  gap-4 m-4 md:grid-cols-2 md:p-10 lg:grid-cols-3 ">
+    <div className="grid grid-cols-1 auto-cols-fr gap-4 m-4 md:grid-cols-2 md:p-10 lg:grid-cols-3 ">
       <div className="flex flex-wrap gap-4 mt-4 col-span-full">
         <div className="px-6 py-8 rounded-md bg-white flex-grow  h-40 shadow-md ">
           <p className="font-semibold text-xl mb-6">Alumnos </p>
