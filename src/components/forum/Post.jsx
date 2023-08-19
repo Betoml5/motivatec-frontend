@@ -12,17 +12,23 @@ const Post = ({ post }) => {
           <h1 className="text-lg text-hardBlue font-semibold">{post.title}</h1>
         </Link>
 
-        <div className="truncate w-full h-full">
-          <p
-            style={{
-              maxHeight: "100px",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
-            }}
-            className="truncate"
-            dangerouslySetInnerHTML={{ __html: post.content }}
-          ></p>
+        <div className="w-full h-full">
+          {post.content.length > 200 ? (
+            <p
+              className="text-sm text-gray-500"
+              dangerouslySetInnerHTML={{ __html: post?.content.slice(0, 200) }}
+            ></p>
+          ) : (
+            <p
+              className="text-sm text-gray-500"
+              dangerouslySetInnerHTML={{ __html: post?.content }}
+            ></p>
+          )}
+          {post.content.length > 200 && (
+            <Link className="hover:underline" to={`/forum/post/${post.id}`}>
+              <p className="text-sm text-hardBlue">Leer mas...</p>
+            </Link>
+          )}
         </div>
       </div>
       <div className="post__user-data ">
