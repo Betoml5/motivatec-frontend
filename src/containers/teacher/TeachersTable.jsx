@@ -176,7 +176,7 @@ const TeachersTable = () => {
                 Seleccionar
               </th>
               <th scope="col" className="py-3 px-6">
-                Id
+                Numero de control
               </th>
               <th scope="col" className="py-3 px-6">
                 Nombre
@@ -206,7 +206,9 @@ const TeachersTable = () => {
                     onChange={() => onChange(teacher.id)}
                   />
                 </td>
-                <td className="py-4 px-6">{teacher.id}</td>
+                <td className="py-4 px-6">
+                  {teacher.controlNumber.toUpperCase()}
+                </td>
                 <td className="py-4 px-6">{teacher.name}</td>
                 <td className="py-4 px-6">{teacher.lastName}</td>
 

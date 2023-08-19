@@ -22,7 +22,7 @@ const Dashboard = () => {
   if (!user) return <Spinner />;
   return (
     <div className="dashboard md:mx-20 md:my-6">
-      <h2 className="text-2xl">Bienvenido, {user.name}</h2>
+      <h2 className="text-2xl">Bienvenido/a, {user.name}</h2>
 
       <div className="dashboard__container grid grid-cols-1 md:grid-cols-8 md:gap-4">
         <div className="md:col-span-4 lg:col-span-4 xl:col-span-2">

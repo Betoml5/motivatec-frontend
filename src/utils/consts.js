@@ -10,22 +10,27 @@ export const MOTIVATION_TYPES = [
 export const EMOTIONS = [
   {
     name: "Triste",
+    value: "triste",
     color: "#1E88E5",
   },
   {
     name: "Enojado",
+    value: "enojado",
     color: "#F44336",
   },
   {
     name: "Feliz",
+    value: "feliz",
     color: "#4CAF50",
   },
   {
     name: "Cansado",
+    value: "cansado",
     color: "#FFC107",
   },
   {
     name: "Ansioso",
+    value: "ansioso",
     color: "#FF5722",
   },
 ];

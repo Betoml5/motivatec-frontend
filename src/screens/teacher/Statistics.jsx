@@ -80,10 +80,10 @@ const Statistics = () => {
       {dailyResults.map((item) => {
         return (
           <div
-            key={item.emotion}
+            key={item.emotion.value}
             className="lg:col-span-1 bg-white rounded-md py-4 shadow-md max-w-4xl"
           >
-            <h1 className="text-2xl text-center ">{item.emotion}</h1>
+            <h1 className="text-2xl text-center ">{item.emotion.name}</h1>
             <ResponsiveContainer width="100%" aspect={2}>
               <AreaChart
                 data={item.results.map((item) => {

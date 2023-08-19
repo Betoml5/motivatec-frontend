@@ -45,9 +45,10 @@ const Dashboard = () => {
   });
 
   if (!user) return <Spinner />;
+
   return (
     <div className="dashboard md:mx-20 md:my-6">
-      <h2 className="text-2xl">Bienvenido, {user.name}</h2>
+      <h2 className="text-2xl">Bienvenido/a, {user.name}</h2>
       <div className="dashboard__container grid grid-cols-1 md:grid-cols-8 md:gap-4">
         <div className="md:col-span-4 lg:col-span-2">
           <h3 className="mt-4 md:m-0 text-xl">Consejo rapido: </h3>
@@ -64,20 +65,29 @@ const Dashboard = () => {
             />
           </div>
           <div className="bg-white rounded-md py-4 shadow-md mt-4">
-            <ResponsiveContainer width="100%" height="100%" aspect={2}>
-              <RadarChart cx="50%" cy="50%" outerRadius="80%" data={dataRadar}>
-                <PolarGrid />
-                <PolarAngleAxis dataKey="emocion" />
-                <PolarRadiusAxis />
-                <Radar
-                  name="total"
-                  dataKey="total"
-                  stroke="#6aa6f9"
-                  fill="#6aa6f9"
-                  fillOpacity={0.6}
-                />
-              </RadarChart>
-            </ResponsiveContainer>
+            {dailySurvey?.length > 0 ? (
+              <ResponsiveContainer width="100%" height="100%" aspect={2}>
+                <RadarChart
+                  cx="50%"
+                  cy="50%"
+                  outerRadius="80%"
+                  data={dataRadar}
+                >
+                  <PolarGrid />
+                  <PolarAngleAxis dataKey="emocion" />
+                  <PolarRadiusAxis />
+                  <Radar
+                    name="total"
+                    dataKey="total"
+                    stroke="#6aa6f9"
+                    fill="#6aa6f9"
+                    fillOpacity={0.6}
+                  />
+                </RadarChart>
+              </ResponsiveContainer>
+            ) : (
+              <p className="text-center">No hay datos para mostrar</p>
+            )}
           </div>
         </div>
 

@@ -3,7 +3,6 @@ import useAuth from "../hooks/useAuth";
 import { useQuery } from "react-query";
 import { getConfigAPI } from "../services/config";
 import SmallSpinner from "../components/loading/SmallSpinner";
-import { useForm } from "react-hook-form";
 
 const Signin = () => {
   const { signin, error } = useAuth();
@@ -13,11 +12,13 @@ const Signin = () => {
   );
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
+    setIsLoading(true);
     e.preventDefault();
     await signin(email, password);
+    setIsLoading(false);
   };
 
   return (
@@ -43,8 +44,8 @@ const Signin = () => {
           placeholder="Contraseña"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button className="btn" type="submit">
-          Iniciar sesion
+        <button className="btn " type="submit">
+          {isLoading ? "Cargando..." : "Iniciar sesion"}
         </button>
         {error && <p className="text-red-500 text-center mt-4">{error}</p>}
       </form>

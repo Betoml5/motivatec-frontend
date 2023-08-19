@@ -5,13 +5,14 @@ import {
 } from "../../services/dailySurvey";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
+import { EMOTIONS } from "../../utils/consts";
 
 const DailySurvey = () => {
   const { data: survey, refetch: refetchDailySurvey } = useQuery(
     "surveyDone",
     checkIsSurveyDoneAPI
   );
-  const { mutate: sendDailySurvey } = useMutation(
+  const { mutate: sendDailySurvey, isLoading } = useMutation(
     "survey",
     (survey) => createDailySurveyAPI(survey),
     {
@@ -54,7 +55,24 @@ const DailySurvey = () => {
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="flex flex-col gap-y-3">
-          <div className="flex items-center gap-x-2 bg-white p-4 rounded-md shadow-md">
+          {EMOTIONS.map((item) => (
+            <div
+              key={item.name}
+              className="flex items-center gap-x-2 bg-white p-4 rounded-md shadow-md"
+            >
+              <input
+                disabled={survey?.isDone}
+                type="radio"
+                name="feeling"
+                id={item.value}
+                value={item.value}
+                defaultChecked={survey?.emotion === item.value}
+                {...register("emotion", { required: true })}
+              />
+              <label htmlFor="happy">{item.name}</label>
+            </div>
+          ))}
+          {/* <div className="flex items-center gap-x-2 bg-white p-4 rounded-md shadow-md">
             <input
               disabled={survey?.isDone}
               type="radio"
@@ -113,7 +131,7 @@ const DailySurvey = () => {
               {...register("emotion", { required: true })}
             />
             <label htmlFor="anxious">Ansioso</label>
-          </div>
+          </div> */}
         </div>
         {errors.emotion && (
           <p className="text-red-500 font-semibold mt-2">
@@ -125,7 +143,7 @@ const DailySurvey = () => {
           className="btn w-full disabled:opacity-50 disabled:cursor-not-allowed"
           type="submit"
         >
-          Enviar
+          {isLoading ? "Enviando..." : survey?.isDone ? "Enviado" : "Enviar"}
         </button>
       </form>
     </>
