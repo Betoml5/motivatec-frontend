@@ -33,6 +33,9 @@ const Groups = () => {
     "deleteGroups",
     (ids) => deleteManyGroupsAPI(ids),
     {
+      onMutate: () => {
+        toast.info("Eliminando grupos");
+      },
       onSuccess: () => {
         toast.success("Grupos eliminados");
         refetch();
@@ -48,6 +51,9 @@ const Groups = () => {
     "deleteGroup",
     (id) => deleteGroupAPI(id),
     {
+      onMutate: () => {
+        toast.info("Eliminando grupo");
+      },
       onSuccess: () => {
         toast.success("Grupo eliminado");
         refetch();
@@ -62,6 +68,9 @@ const Groups = () => {
     "createGroup",
     (group) => createGroupAPI(group),
     {
+      onMutate: () => {
+        toast.info("Creando grupo");
+      },
       onSuccess: () => {
         toast.success("Grupo creado");
         refetch();

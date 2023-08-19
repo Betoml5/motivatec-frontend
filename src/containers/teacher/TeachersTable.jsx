@@ -32,6 +32,9 @@ const TeachersTable = () => {
     "addTeacher",
     (data) => createTeacherAPI(data),
     {
+      onMutate: () => {
+        toast.info("Agregando maestro...");
+      },
       onSuccess: () => {
         toast.success("Maestro agregado");
         refetch();
@@ -46,6 +49,9 @@ const TeachersTable = () => {
     "deleteTeachers",
     (ids) => deleteManyTeachersAPI(ids),
     {
+      onMutate: () => {
+        toast.info("Eliminando maestros");
+      },
       onSuccess: () => {
         toast.success("Maestros eliminados");
         refetch();
@@ -60,6 +66,9 @@ const TeachersTable = () => {
     "deleteStudent",
     (id) => deleteTeacherAPI(id),
     {
+      onMutate: () => {
+        toast.info("Eliminando maestro");
+      },
       onSuccess: () => {
         toast.success("Maestro eliminado");
         refetch();

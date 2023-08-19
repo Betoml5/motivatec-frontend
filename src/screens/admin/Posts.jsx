@@ -18,6 +18,9 @@ const Posts = () => {
     "deletePosts",
     (ids) => deleteManyPostsAPI(ids),
     {
+      onMutate: () => {
+        toast.info("Eliminando posts");
+      },
       onSuccess: () => {
         toast.success("Posts eliminados");
         refetch();
@@ -32,6 +35,9 @@ const Posts = () => {
     "deleteStudent",
     (id) => deleteStudentAPI(id),
     {
+      onMutate: () => {
+        toast.info("Eliminando estudiante");
+      },
       onSuccess: () => {
         toast.success("Estudiante eliminado");
         refetch();
