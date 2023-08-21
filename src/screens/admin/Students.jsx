@@ -27,6 +27,9 @@ const Students = () => {
     "deleteStudent",
     (id) => deleteStudentAPI(id),
     {
+      onMutate: () => {
+        toast.info("Eliminando estudiante");
+      },
       onSuccess: () => {
         toast.success("Estudiante eliminado");
         refetch();
@@ -41,6 +44,9 @@ const Students = () => {
     "deleteStudents",
     (ids) => deleteManyStudentsAPI(ids),
     {
+      onMutate: () => {
+        toast.info("Eliminando estudiantes");
+      },
       onSuccess: () => {
         toast.success("Estudiantes eliminados");
         refetch();

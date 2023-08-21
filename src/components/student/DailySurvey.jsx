@@ -5,13 +5,14 @@ import {
 } from "../../services/dailySurvey";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
+import { EMOTIONS } from "../../utils/consts";
 
 const DailySurvey = () => {
   const { data: survey, refetch: refetchDailySurvey } = useQuery(
     "surveyDone",
     checkIsSurveyDoneAPI
   );
-  const { mutate: sendDailySurvey } = useMutation(
+  const { mutate: sendDailySurvey, isLoading } = useMutation(
     "survey",
     (survey) => createDailySurveyAPI(survey),
     {
@@ -54,66 +55,23 @@ const DailySurvey = () => {
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="flex flex-col gap-y-3">
-          <div className="flex items-center gap-x-2 bg-white p-4 rounded-md shadow-md">
-            <input
-              disabled={survey?.isDone}
-              type="radio"
-              name="feeling"
-              id="happy"
-              value="happy"
-              defaultChecked={survey?.emotion === "happy"}
-              {...register("emotion", { required: true })}
-            />
-            <label htmlFor="happy">Feliz</label>
-          </div>
-          <div className="flex items-center gap-x-2 bg-white p-4 rounded-md shadow-md">
-            <input
-              disabled={survey?.isDone}
-              type="radio"
-              name="feeling"
-              id="sad"
-              value="sad"
-              defaultChecked={survey?.emotion === "sad"}
-              {...register("emotion", { required: true })}
-            />
-            <label htmlFor="sad">Triste</label>
-          </div>
-          <div className="flex items-center gap-x-2 bg-white p-4 rounded-md shadow-md">
-            <input
-              disabled={survey?.isDone}
-              type="radio"
-              name="feeling"
-              id="angry"
-              value="angry"
-              defaultChecked={survey?.emotion === "angry"}
-              {...register("emotion", { required: true })}
-            />
-            <label htmlFor="angry">Enojado</label>
-          </div>
-          <div className="flex items-center gap-x-2 bg-white p-4 rounded-md shadow-md">
-            <input
-              disabled={survey?.isDone}
-              type="radio"
-              name="feeling"
-              id="tired"
-              value="tired"
-              defaultChecked={survey?.emotion === "tired"}
-              {...register("emotion", { required: true })}
-            />
-            <label htmlFor="tired">Cansado</label>
-          </div>
-          <div className="flex items-center gap-x-2 bg-white p-4 rounded-md shadow-md">
-            <input
-              disabled={survey?.isDone}
-              type="radio"
-              name="feeling"
-              id="anxious"
-              value="anxious"
-              defaultChecked={survey?.emotion === "anxious"}
-              {...register("emotion", { required: true })}
-            />
-            <label htmlFor="anxious">Ansioso</label>
-          </div>
+          {EMOTIONS.map((item) => (
+            <div
+              key={item.name}
+              className="flex items-center gap-x-2 bg-white p-4 rounded-md shadow-md"
+            >
+              <input
+                disabled={survey?.isDone}
+                type="radio"
+                name="feeling"
+                id={item.value}
+                value={item.value}
+                defaultChecked={survey?.emotion === item.value}
+                {...register("emotion", { required: true })}
+              />
+              <label htmlFor="happy">{item.name}</label>
+            </div>
+          ))}
         </div>
         {errors.emotion && (
           <p className="text-red-500 font-semibold mt-2">
@@ -125,7 +83,7 @@ const DailySurvey = () => {
           className="btn w-full disabled:opacity-50 disabled:cursor-not-allowed"
           type="submit"
         >
-          Enviar
+          {isLoading ? "Enviando..." : survey?.isDone ? "Enviado" : "Enviar"}
         </button>
       </form>
     </>
