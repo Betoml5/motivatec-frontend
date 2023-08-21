@@ -30,7 +30,7 @@ html {
   }
 
   .sidebar {
-    @apply bg-secondary top-0 text-white font-bold py-2 px-4 transition-all absolute w-64 duration-200 h-full z-[100];
+    @apply bg-secondary top-0 text-white font-bold py-2 px-4 transition-all absolute w-64 duration-200 h-screen z-[100];
   }
 
   .sidebar__item {
