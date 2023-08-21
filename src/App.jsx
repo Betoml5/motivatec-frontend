@@ -34,7 +34,7 @@ import initAxiosInterceptors from "./services/axios/auth-helpers";
 import StudentDetails from "./screens/shared/StudentDetails";
 // import EditStudent from "./screens/student/Edit";
 
-function App() {
+function  App() {
   initAxiosInterceptors();
 
   return (
