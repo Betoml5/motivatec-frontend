@@ -57,12 +57,9 @@ const Students = () => {
             placeholder="Numero de control, nombre, apellido o grupo"
           />
         </div>
-        <div className=" self-end">
+        <div className="self-end">
           <Link className="btn" to="/teacher/students/register">
             Agregar estudiante
-          </Link>
-          <Link className="btn ml-2" to="/teacher/students/import">
-            Importar estudiantes
           </Link>
         </div>
       </div>
