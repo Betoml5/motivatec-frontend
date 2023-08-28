@@ -5,6 +5,8 @@ import { deleteStudentAPI, getStudentsAPI } from "../../../services/student";
 import { toast } from "react-toastify";
 import { searchFilter } from "../../../utils/search";
 import { useState } from "react";
+import Spinner from "../../loading/Spinner";
+import Error from "../../error/Error";
 
 const Students = () => {
   const [query, setQuery] = useState("");
@@ -19,17 +21,12 @@ const Students = () => {
     "deleteStudent",
     (id) => deleteStudentAPI(id),
     {
-      onError: () => toast.error("Error al eliminar estudiante"),
-      onMutate: () => toast.info("Eliminando estudiante"),
-      onSettled: (data, error) => {
-        if (error) {
-          toast.error("Error al eliminar estudiante");
-        }
-      },
       onSuccess: () => {
         toast.done("Estudiante eliminado");
         refetch();
       },
+      onError: () => toast.error("Error al eliminar estudiante"),
+      onMutate: () => toast.info("Eliminando estudiante..."),
     }
   );
 
@@ -44,8 +41,10 @@ const Students = () => {
     setQuery(value);
   };
 
-  const filtered = searchFilter(students, query);
+  if (isLoading) return <Spinner />;
+  if (error) return <Error />;
 
+  const filtered = searchFilter(students, query);
   return (
     <section className="flex flex-col p-4">
       <div className="flex flex-col w-full md:flex-row md:justify-between md:items-center">

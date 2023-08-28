@@ -17,11 +17,19 @@ import { getDailyByMonthAPI, getResultsAPI } from "../../services/statistics";
 import { MOTIVATION_TYPES } from "../../utils/consts";
 import { getStudentsAPI } from "../../services/student";
 import { getTotalResultsAPI } from "../../services/result";
+import Spinner from "../../screens/loading/Spinner";
+import { useState } from "react";
+import useGroups from "../../hooks/useGroup";
 
 const Statistics = () => {
-  const { data: results, isLoading } = useQuery("results", getResultsAPI);
+  const [filter, setFilter] = useState("");
+  const {
+    data: results,
+    isLoading: isResultsLoading,
+    isError: isResultsError,
+  } = useQuery(["results", filter], () => getResultsAPI({ group: filter }));
+  const { groups } = useGroups();
   const { data: resultsLength } = useQuery("resultsLength", getTotalResultsAPI);
-
   const { data: students } = useQuery("students", getStudentsAPI);
   const { data: dailyResults, isLoading: isDailyLoading } = useQuery(
     "dailyByMonth",
@@ -40,8 +48,9 @@ const Statistics = () => {
     return data;
   };
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isResultsLoading) return <Spinner />;
   if (isDailyLoading) return <div>Loading...</div>;
+  if (isResultsError) return <div>Error</div>;
 
   return (
     <div className="grid grid-cols-1 auto-cols-fr gap-4 m-4 md:grid-cols-2 md:p-10 lg:grid-cols-3 ">
@@ -54,6 +63,22 @@ const Statistics = () => {
           <p className="font-semibold text-xl mb-6">Encuestas contestadas </p>
           <p className="text-3xl font-bold ">{resultsLength.length}</p>
         </div>
+      </div>
+      <div className="flex flex-col col-span-full max-w-md">
+        <label htmlFor="group" className="label">
+          Filtrar por grupo
+        </label>
+        <select className="input" onChange={(e) => setFilter(e.target.value)}>
+          <option value="" disabled selected>
+            Selecciona un grupo
+          </option>
+          <option value="">Todos</option>
+          {groups?.map((item) => (
+            <option key={item.id} value={item.id}>
+              {item.name}
+            </option>
+          ))}
+        </select>
       </div>
       {results.map((item, index) => {
         const data = getResultsData(item);

@@ -1,4 +1,5 @@
 import "./App.css";
+import { lazy } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import Dashboard from "./screens/teacher/Dashboard";
@@ -6,15 +7,21 @@ import TeacherLayout from "./layouts/TeacherLayout";
 import MainLayout from "./layouts/MainLayout";
 
 import Home from "./screens/Home";
-import Students from "./screens/teacher/students/Students";
-import Register from "./screens/teacher/students/Register";
-import Statistics from "./screens/teacher/Statistics";
 import ProtectedRoute from "./components/ProtectedRoute";
 
-import { default as SurveyForm } from "./screens/student/Survey";
+//import lazy
+const Students = lazy(() => import("./screens/teacher/students/Students"));
+const Register = lazy(() => import("./screens/teacher/students/Register"));
+const Statistics = lazy(() => import("./screens/teacher/Statistics"));
+const SurveyForm = lazy(() => import("./screens/student/Survey"));
+const StudentSettings = lazy(() => import("./screens/student/Settings"));
+const StudentEdit = lazy(() => import("./screens/shared/StudentEdit"));
+const Posts = lazy(() => import("./screens/forum/Posts"));
+const Create = lazy(() => import("./screens/forum/Create"));
+const StudentDetails = lazy(() => import("./screens/shared/StudentDetails"));
+
 import { default as StudentDashboard } from "./screens/student/Dashboard";
 import { default as AdminDashboard } from "./screens/admin/Dashboard";
-import { default as StudentSettings } from "./screens/student/Settings";
 import { default as TeacherSettings } from "./screens/teacher/Settings";
 import { default as StudentsAdmin } from "./screens/admin/Students";
 import { default as TeachersAdmin } from "./screens/admin/Teachers";
@@ -22,19 +29,17 @@ import { default as PostsAdmin } from "./screens/admin/Posts";
 import { default as SettingsAdmin } from "./screens/admin/Settings";
 import { default as GroupsAdmin } from "./screens/admin/Groups";
 
-import StudentEdit from "./screens/shared/StudentEdit";
 import StudentLayout from "./layouts/StudentLayout";
-import Posts from "./screens/forum/Posts";
 import ForumLayout from "./layouts/ForumLayout";
-import Create from "./screens/forum/Create";
+
 import PostDetails from "./components/forum/PostDetails";
 import NotFound from "./screens/NotFound";
 import AdminLayout from "./layouts/AdminLayout";
 import initAxiosInterceptors from "./services/axios/auth-helpers";
-import StudentDetails from "./screens/shared/StudentDetails";
+
 // import EditStudent from "./screens/student/Edit";
 
-function  App() {
+function App() {
   initAxiosInterceptors();
 
   return (
