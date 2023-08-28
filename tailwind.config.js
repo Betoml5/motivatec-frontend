@@ -6,11 +6,17 @@ export default {
       colors: {
         primary: "#fff",
         secondary: "#bdd4fa",
+        tertiary: "#6aa6f9",
+        hardBlue: "#0791e6",
       },
       backgroundColor: {
         primary: "#fff",
-        secondary: "#bdd4fa",
+        secondary: "#121f3d",
         tertiary: "#6aa6f9",
+        grayWhite: "#f6f6f6",
+      },
+      backgroundImage: {
+        blog: "url('/blog.jpg')",
       },
     },
   },

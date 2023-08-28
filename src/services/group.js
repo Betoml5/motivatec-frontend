@@ -20,7 +20,9 @@ export const getGroupAPI = async (id) => {
 
 export const createGroupAPI = async (groupData) => {
   try {
-    const response = await UserClient.post("/group", groupData);
+    const response = await UserClient.post("/group", {
+      group: groupData,
+    });
     return response.data;
   } catch (error) {
     throw new Error(error);
@@ -39,6 +41,17 @@ export const updateGroupAPI = async (id, groupData) => {
 export const deleteGroupAPI = async (id) => {
   try {
     const response = await UserClient.delete(`/group/${id}`);
+    return response.data;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const deleteManyGroupsAPI = async (ids) => {
+  try {
+    const response = await UserClient.delete(`/group`, {
+      data: { ids },
+    });
     return response.data;
   } catch (error) {
     throw new Error(error);

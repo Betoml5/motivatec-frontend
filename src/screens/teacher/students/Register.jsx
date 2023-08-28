@@ -1,29 +1,49 @@
-import { useState } from "react";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { getGroupsAPI } from "../../../services/group";
+import { createStudentAPI } from "../../../services/student";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 const Register = () => {
-  const { data: groups, error, isLoading } = useQuery("groups", getGroupsAPI);
+  const {
+    data: groups,
+    error,
+    isLoading: isGroupsLoading,
+  } = useQuery("groups", getGroupsAPI);
+  const { isLoading: studentIsLoading, mutate } = useMutation(
+    "registerStudent",
+    (student) => createStudentAPI(student),
+    {
+      onMutate: () => toast.info("Guardando cambios"),
+      onSettled: (data, error) => {
+        if (error) {
+          toast.error("Error al guardar los cambios");
+        }
+        if (data) {
+          toast.success("Cambios guardados");
+          reset();
+        }
+      },
+    }
+  );
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
-  const [student, setStudent] = useState({
-    name: "",
-    lastName: "",
-    controlNumber: "",
-    groupId: "",
-  });
-
-  const onChange = (event) => {
-    const { name, value } = event.target;
-    setStudent({ ...student, [name]: value });
-  };
-
-  const onSubmit = (event) => {
-    event.preventDefault();
+  const onSubmit = (student) => {
+    mutate(student);
   };
 
   return (
-    <div className="p-4">
-      <form id="form__student" className="form__student">
+    <div className="bg-white mt-4 max-w-2xl mx-auto p-4 rounded-md">
+      <form
+        id="form__student"
+        className="form__student"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <label className="label" htmlFor="name">
           Nombre
         </label>
@@ -33,8 +53,14 @@ const Register = () => {
           type="text"
           placeholder="Nombre"
           name="name"
-          onChange={onChange}
+          required
+          {...register("name", { required: true })}
         ></input>
+        {errors.name && (
+          <span className="text-red-500 text-sm">
+            Este campo es obligatorio
+          </span>
+        )}
         <label className="label" htmlFor="lastName">
           Apellidos
         </label>
@@ -44,8 +70,15 @@ const Register = () => {
           type="text"
           name="lastName"
           placeholder="Apellidos"
-          onChange={onChange}
+          required
+          {...register("lastName", { required: true })}
         ></input>
+        {errors.lastName && (
+          <span className="text-red-500 text-sm">
+            Este campo es obligatorio
+          </span>
+        )}
+
         <label className="label" htmlFor="controlNumber">
           Numero de control
         </label>
@@ -55,24 +88,32 @@ const Register = () => {
           type="text"
           name="controlNumber"
           placeholder="Numero de control"
-          onChange={onChange}
+          minLength={8}
+          required
+          {...register("controlNumber", { required: true, minLength: 8 })}
         ></input>
+        {errors.controlNumber && (
+          <span className="text-red-500 text-sm">
+            Este campo es obligatorio
+          </span>
+        )}
         <label className="label" htmlFor="group">
           Grupo
         </label>
 
-        {isLoading ? (
+        {isGroupsLoading ? (
           <p>Cargando...</p>
         ) : error ? (
           <p>Error al cargar los grupos</p>
         ) : (
           <select
-            onChange={onChange}
             className="input"
             id="groupId"
             type="text"
             name="groupId"
             placeholder="Grupo"
+            required
+            {...register("groupId", { required: true })}
           >
             <option value="" disabled selected>
               Selecciona un grupo
@@ -84,9 +125,15 @@ const Register = () => {
             ))}
           </select>
         )}
+        
+        {errors.groupId && (
+          <span className="text-red-500 text-sm">
+            Este campo es obligatorio
+          </span>
+        )}
 
-        <button onClick={onSubmit} className="btn" type="submit">
-          Registrar
+        <button className="btn" type="submit">
+          {studentIsLoading ? "Cargando..." : "Registrar"}
         </button>
       </form>
     </div>

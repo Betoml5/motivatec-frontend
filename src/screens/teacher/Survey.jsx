@@ -15,12 +15,12 @@ const Survey = () => {
       );
       setCopied(true);
     } catch (error) {
-      console.error("Error al copiar al portapapeles:", error);
+      throw new Error(error);
     }
   };
 
   return (
-    <div className="m-4 p-4 shadow-xl">
+    <div className="bg-white rounded-md max-w-2xl mx-auto m-4 p-4 shadow-xl">
       <form className="flex flex-col">
         <label className="label" htmlFor="groupId">
           Grupo
