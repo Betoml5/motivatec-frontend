@@ -5,7 +5,11 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 const Register = () => {
-  const { data: groups, error, isLoading } = useQuery("groups", getGroupsAPI);
+  const {
+    data: groups,
+    error,
+    isLoading: isGroupsLoading,
+  } = useQuery("groups", getGroupsAPI);
   const { isLoading: studentIsLoading, mutate } = useMutation(
     "registerStudent",
     (student) => createStudentAPI(student),
@@ -97,7 +101,7 @@ const Register = () => {
           Grupo
         </label>
 
-        {isLoading ? (
+        {isGroupsLoading ? (
           <p>Cargando...</p>
         ) : error ? (
           <p>Error al cargar los grupos</p>
@@ -121,6 +125,7 @@ const Register = () => {
             ))}
           </select>
         )}
+        
         {errors.groupId && (
           <span className="text-red-500 text-sm">
             Este campo es obligatorio
