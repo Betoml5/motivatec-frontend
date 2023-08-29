@@ -31,10 +31,11 @@ const Statistics = () => {
   const { groups } = useGroups();
   const { data: resultsLength } = useQuery("resultsLength", getTotalResultsAPI);
   const { data: students } = useQuery("students", getStudentsAPI);
-  const { data: dailyResults, isLoading: isDailyLoading } = useQuery(
-    "dailyByMonth",
-    getDailyByMonthAPI
-  );
+  const {
+    data: dailyResults,
+    isLoading: isDailyLoading,
+    isError: isDailyError,
+  } = useQuery("dailyByMonth", getDailyByMonthAPI);
 
   const getResultsData = (item) => {
     const data = Object.entries(item).map((item) => {
@@ -44,13 +45,12 @@ const Statistics = () => {
         fullMark: 150,
       };
     });
-    delete item.key;
     return data;
   };
 
-  if (isResultsLoading) return <Spinner />;
-  if (isDailyLoading) return <div>Loading...</div>;
-  if (isResultsError) return <div>Error</div>;
+  if (isResultsLoading || isDailyLoading) return <Spinner />;
+  if (isResultsError && isDailyError)
+    return <div>Ocurrio un error inesperado</div>;
 
   return (
     <div className="grid grid-cols-1 auto-cols-fr gap-4 m-4 md:grid-cols-2 md:p-10 lg:grid-cols-3 ">
