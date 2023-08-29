@@ -1,8 +1,8 @@
 import { UserClient } from "./axios/index.js";
 
-export const getResultsAPI = async () => {
+export const getResultsAPI = async ({ group = "" }) => {
   try {
-    const response = await UserClient.get("/statistics/results");
+    const response = await UserClient.get(`/statistics/results?group=${group}`);
 
     if (response.status !== 200) throw new Error("An error ocurred");
     return response.data.body;

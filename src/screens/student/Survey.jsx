@@ -8,7 +8,10 @@ import Spinner from "../../screens/loading/Spinner";
 import Questions from "../../containers/Questions";
 
 const Survey = () => {
-  const { data, isLoading } = useQuery("checkSurvey", checkIsSurveyDoneAPI);
+  const { data, isLoading, isError } = useQuery(
+    "checkSurvey",
+    checkIsSurveyDoneAPI
+  );
 
   const [repliedQuestions, setRepliedQuestions] = useState([]);
   const { mutate } = useMutation(
@@ -56,6 +59,7 @@ const Survey = () => {
   };
 
   if (isLoading) return <Spinner />;
+  if (isError) return <div>Error</div>;
 
   if (data.isDone) {
     return (

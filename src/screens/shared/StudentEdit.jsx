@@ -4,11 +4,20 @@ import { useParams } from "react-router-dom";
 import { getStudentAPI, updateStudentAPI } from "../../services/student";
 import { getGroupsAPI } from "../../services/group";
 import { toast } from "react-toastify";
+import Spinner from "../loading/Spinner";
 
 const StudentEdit = () => {
   const { id } = useParams();
-  const { data: groups, error, isLoading } = useQuery("groups", getGroupsAPI);
-  const { data: studentData } = useQuery("student", () => getStudentAPI(id));
+  const {
+    data: groups,
+    error,
+    isLoading: isGroupsLoding,
+  } = useQuery("groups", getGroupsAPI);
+  const {
+    data: studentData,
+    isLoading: isLoadingStudent,
+    isError: isStudentError,
+  } = useQuery("student", () => getStudentAPI(id));
 
   const { mutate } = useMutation(
     "registerStudent",
@@ -36,6 +45,9 @@ const StudentEdit = () => {
   const onSubmit = (student) => {
     mutate(student);
   };
+
+  if (isLoadingStudent) return <Spinner />;
+  if (isStudentError) return <p>Error al cargar los datos del estudiante</p>;
 
   return (
     <div className="bg-white mt-4 max-w-2xl mx-auto p-4 rounded-md">
@@ -103,7 +115,7 @@ const StudentEdit = () => {
           Grupo
         </label>
 
-        {isLoading ? (
+        {isGroupsLoding ? (
           <p>Cargando...</p>
         ) : error ? (
           <p>Error al cargar los grupos</p>
