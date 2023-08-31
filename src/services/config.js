@@ -10,7 +10,6 @@ export const getConfigAPI = async () => {
 
     return response.data.body;
   } catch (error) {
-    console.log(error);
     throw new Error(error);
   }
 };
@@ -27,7 +26,6 @@ export const updateConfigAPI = async (changes) => {
 
     return response.data.body;
   } catch (error) {
-    console.log(error);
     throw new Error(error);
   }
 };

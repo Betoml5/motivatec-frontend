@@ -47,7 +47,6 @@ export const AuthContextProvider = ({ children }) => {
           throw new Error("Credenciales invalidas");
         }
         if (response?.response.status !== 200) {
-          console.log(response);
           throw new Error("Error al iniciar sesion");
         }
       }

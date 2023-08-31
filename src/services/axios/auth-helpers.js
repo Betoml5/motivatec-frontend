@@ -47,7 +47,6 @@ function initAxiosInterceptors() {
         request.headers.Authorization = `Bearer ${newToken}`;
       } catch (error) {
         // Handle token refresh error, e.g., redirect to login page
-        console.log("Token refresh failed:", error);
       } finally {
         isRefreshing = false;
       }
@@ -68,7 +67,6 @@ function initAxiosInterceptors() {
     (error) => {
       // Handle request error, e.g., refresh token failed or unauthorized access
       // You can redirect to login page or handle the error based on your application's requirements
-      console.log("Request error:", error);
       return Promise.reject(error);
     }
   );
