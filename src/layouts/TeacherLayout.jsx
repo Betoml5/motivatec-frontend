@@ -8,16 +8,16 @@ import {
 import { PiStudentLight } from "react-icons/pi";
 import { CiSettings } from "react-icons/ci";
 import { MdOutlineForum } from "react-icons/md";
-import { useState } from "react";
 import useAuth from "../hooks/useAuth";
+import useSideBar from "../hooks/useSideBar";
 
 const TeacherLayout = () => {
   const { signout, user } = useAuth();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { containerRef, setSidebarOpen, sidebarOpen } = useSideBar();
 
   return (
     <div>
-      <header className="header">
+      <header ref={containerRef} className="header">
         <button className="mr-4" onClick={() => setSidebarOpen(!sidebarOpen)}>
           <AiOutlineMenu className="sidebar__item-icon" size={30} />
         </button>

@@ -25,7 +25,6 @@ const Create = () => {
   const { handleSubmit, control } = useForm();
 
   const onSubmit = (post) => {
-    console.log(post);
     mutate({
       ...post,
       userId: "",
