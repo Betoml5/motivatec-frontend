@@ -15,12 +15,20 @@ const useSideBar = () => {
       }
     }
 
+    //add event if user scroll the page
+    function handleScroll() {
+      setSidebarOpen(false);
+    }
+
+    document.addEventListener("scroll", handleScroll);
+
     // Add event listener when the component mounts
     document.addEventListener("click", handleClickOutside);
 
     // Remove event listener when the component unmounts
     return () => {
       document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
