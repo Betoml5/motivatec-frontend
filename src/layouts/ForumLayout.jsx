@@ -1,5 +1,4 @@
 import { Outlet } from "react-router-dom";
-import { useState } from "react";
 import {
   AiOutlineMenu,
   AiOutlineLogout,
@@ -11,16 +10,16 @@ import { IoCreateOutline } from "react-icons/io5";
 
 import { Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import useSideBar from "../hooks/useSideBar";
 
 const ForumLayout = () => {
   const { signout, user } = useAuth();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
+  const { containerRef, setSidebarOpen, sidebarOpen } = useSideBar();
   const role = user?.user?.userType?.type.toLowerCase();
 
   return (
     <div className="relative z-50">
-      <header className="header">
+      <header ref={containerRef} className="header">
         <button className="mr-4" onClick={() => setSidebarOpen(!sidebarOpen)}>
           <AiOutlineMenu className="sidebar__item-icon" size={30} />
         </button>

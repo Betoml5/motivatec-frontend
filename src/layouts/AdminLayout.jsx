@@ -1,17 +1,18 @@
 import { AiOutlineHome, AiOutlineLogout, AiOutlineMenu } from "react-icons/ai";
 import { Link, Outlet } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import { useState } from "react";
 import { CiSettings } from "react-icons/ci";
 import { PiChalkboardTeacherThin, PiStudentThin } from "react-icons/pi";
 import { MdOutlineForum, MdGroups2 } from "react-icons/md";
+import useSideBar from "../hooks/useSideBar";
 
 const AdminLayout = () => {
   const { signout } = useAuth();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { containerRef, setSidebarOpen, sidebarOpen } = useSideBar();
+
   return (
     <div>
-      <header className="header">
+      <header ref={containerRef} className="header">
         <button className="mr-4" onClick={() => setSidebarOpen(!sidebarOpen)}>
           <AiOutlineMenu className="sidebar__item-icon" size={30} />
         </button>

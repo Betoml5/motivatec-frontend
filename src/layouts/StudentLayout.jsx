@@ -1,18 +1,19 @@
 import { Outlet, Link } from "react-router-dom";
-import { useState } from "react";
-
 import { AiOutlineMenu, AiOutlineHome, AiOutlineLogout } from "react-icons/ai";
 import { MdOutlineForum } from "react-icons/md";
 import { CiSettings } from "react-icons/ci";
 import { RiSurveyLine } from "react-icons/ri";
 import useAuth from "../hooks/useAuth";
+import useSideBar from "../hooks/useSideBar";
 
 const StudentLayout = () => {
   const { signout } = useAuth();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const { containerRef, setSidebarOpen, sidebarOpen } = useSideBar();
+
   return (
     <div>
-      <header className="header">
+      <header ref={containerRef} className="header">
         <button className="mr-4" onClick={() => setSidebarOpen(!sidebarOpen)}>
           <AiOutlineMenu className="sidebar__item-icon" size={30} />
         </button>
