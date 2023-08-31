@@ -4,7 +4,6 @@ import Articles from "../../containers/shared/Articles";
 import Posts from "../../containers/forum/Posts";
 import useUser from "../../hooks/useUser";
 import { useQuery } from "react-query";
-import { getRandomAdviceAPI } from "../../services/advice";
 import { getStudentsAPI } from "../../services/student";
 import { getPostsAPI } from "../../services/post";
 import { getDailyAPI } from "../../services/statistics";
@@ -17,11 +16,10 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import Students from "../../containers/shared/Students";
+import { getRandomAdvice } from "../../utils/functions";
 const Dashboard = () => {
   const { user } = useUser();
-  const { data, isLoading } = useQuery("advice", getRandomAdviceAPI, {
-    refetchOnWindowFocus: false,
-  });
+
   const {
     data: students,
     isLoading: isLoadingStudents,
@@ -53,7 +51,7 @@ const Dashboard = () => {
         <div className="md:col-span-4 lg:col-span-2">
           <h3 className="mt-4 md:m-0 text-xl">Consejo rapido: </h3>
           <div className="bg-[#393E46] p-4 rounded-md text-white my-4 shadow-md">
-            <p>{isLoading ? "Cargando..." : `"${data.slip.advice}"`}</p>
+            <p>{getRandomAdvice()}</p>
           </div>
           <Articles />
           <div className="flex items-center">

@@ -2,16 +2,13 @@ import Spinner from "../loading/Spinner";
 import useUser from "../../hooks/useUser";
 import Posts from "../../containers/forum/Posts";
 import { useQuery } from "react-query";
-import { getRandomAdviceAPI } from "../../services/advice";
 import { getPostsAPI } from "../../services/post";
 import DailySurvey from "../../components/student/DailySurvey";
 import Articles from "../../containers/shared/Articles";
+import { getRandomAdvice } from "../../utils/functions";
 
 const Dashboard = () => {
   const { user } = useUser();
-  const { data, isLoading } = useQuery("advice", getRandomAdviceAPI, {
-    refetchOnWindowFocus: false,
-  });
 
   const {
     data: posts,
@@ -28,7 +25,7 @@ const Dashboard = () => {
         <div className="md:col-span-4 lg:col-span-4 xl:col-span-2">
           <h3 className="mt-4 md:m-0 text-xl">Consejo rapido: </h3>
           <div className="bg-[#393E46] p-4 rounded-md text-white my-4 ">
-            <p>{isLoading ? "Cargando..." : `"${data.slip.advice}"`}</p>
+            <p>{getRandomAdvice()}</p>
           </div>
           <Articles />
         </div>
