@@ -35,7 +35,9 @@ const Statistics = () => {
     data: dailyResults,
     isLoading: isDailyLoading,
     isError: isDailyError,
-  } = useQuery("dailyByMonth", getDailyByMonthAPI);
+  } = useQuery(["dailyByMonth", filter], () =>
+    getDailyByMonthAPI({ group: filter })
+  );
 
   const getResultsData = (item) => {
     const data = Object.entries(item).map((item) => {
