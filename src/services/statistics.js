@@ -32,9 +32,11 @@ export const getDailyByEmotionAPI = async (emotion) => {
   }
 };
 
-export const getDailyByMonthAPI = async () => {
+export const getDailyByMonthAPI = async ({ group = "" }) => {
   try {
-    const response = await UserClient.get(`/statistics/daily/month`);
+    const response = await UserClient.get(
+      `/statistics/daily/month?group=${group}`
+    );
     return response.data.body;
   } catch (error) {
     throw new Error(error);
