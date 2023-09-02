@@ -1,6 +1,6 @@
 import { UserClient } from "./axios/index.js";
 
-export const getStudentsAPI = async ({ limit = Infinity }) => {
+export const getStudentsAPI = async ({ limit = 10000 }) => {
   try {
     const response = await UserClient.get(`/student?limit=${limit}`);
     return response.data.body;
