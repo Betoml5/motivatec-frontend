@@ -29,8 +29,14 @@ const Statistics = () => {
     isError: isResultsError,
   } = useQuery(["results", filter], () => getResultsAPI({ group: filter }));
   const { groups } = useGroups();
-  const { data: resultsLength } = useQuery("resultsLength", getTotalResultsAPI);
-  const { data: students } = useQuery("students", getStudentsAPI);
+  const { data: resultsLength, isLoading: isResultsLengthLoading } = useQuery(
+    "resultsLength",
+    getTotalResultsAPI
+  );
+  const { data: students, isLoading: isStudentsLoading } = useQuery(
+    "students",
+    () => getStudentsAPI({ limit: 10000 })
+  );
   const {
     data: dailyResults,
     isLoading: isDailyLoading,
@@ -50,7 +56,11 @@ const Statistics = () => {
     return data;
   };
 
-  if (isResultsLoading || isDailyLoading) return <Spinner />;
+  if (
+    (isResultsLoading || isDailyLoading || isStudentsLoading,
+    isResultsLengthLoading)
+  )
+    return <Spinner />;
   if (isResultsError && isDailyError)
     return <div>Ocurrio un error inesperado</div>;
 
@@ -59,11 +69,11 @@ const Statistics = () => {
       <div className="flex flex-wrap gap-4 mt-4 col-span-full">
         <div className="px-6 py-8 rounded-md bg-white flex-grow  h-40 shadow-md ">
           <p className="font-semibold text-xl mb-6">Alumnos </p>
-          <p className="text-3xl font-bold ">{students.length}</p>
+          <p className="text-3xl font-bold ">{students?.length}</p>
         </div>
         <div className="px-6 py-8 rounded-md bg-white flex-grow  h-40 shadow-md ">
           <p className="font-semibold text-xl mb-6">Encuestas contestadas </p>
-          <p className="text-3xl font-bold ">{resultsLength.length}</p>
+          <p className="text-3xl font-bold ">{resultsLength?.length}</p>
         </div>
       </div>
       <div className="flex flex-col col-span-full max-w-md">

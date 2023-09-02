@@ -15,7 +15,7 @@ const Students = () => {
     isLoading,
     error,
     refetch,
-  } = useQuery("students", getStudentsAPI);
+  } = useQuery("students", () => getStudentsAPI({ limit: 10000 }));
 
   const { mutate } = useMutation(
     "deleteStudent",
