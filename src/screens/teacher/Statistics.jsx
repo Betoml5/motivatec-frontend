@@ -30,7 +30,9 @@ const Statistics = () => {
   } = useQuery(["results", filter], () => getResultsAPI({ group: filter }));
   const { groups } = useGroups();
   const { data: resultsLength } = useQuery("resultsLength", getTotalResultsAPI);
-  const { data: students } = useQuery("students", getStudentsAPI);
+  const { data: students } = useQuery("students", () =>
+    getStudentsAPI({ limit: 10000 })
+  );
   const {
     data: dailyResults,
     isLoading: isDailyLoading,

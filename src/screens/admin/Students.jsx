@@ -19,7 +19,7 @@ const Students = () => {
     error,
     isLoading,
     refetch,
-  } = useQuery("students", getStudentsAPI);
+  } = useQuery("students", () => getStudentsAPI({ limit: 10000 }));
   const [selectedStudents, setSelectedStudents] = useState([]);
   const [show, setShow] = useState(false);
 
