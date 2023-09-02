@@ -114,7 +114,7 @@ const Statistics = () => {
           </div>
         );
       })}
-      {dailyResults.map((item) => {
+      {dailyResults?.map((item) => {
         return (
           <div
             key={item.emotion.value}
