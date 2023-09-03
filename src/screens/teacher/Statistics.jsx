@@ -46,7 +46,7 @@ const Statistics = () => {
   );
 
   const getResultsData = (item) => {
-    const data = Object.entries(item).map((item) => {
+    const data = Object.entries(item)?.map((item) => {
       return {
         subject: item[0],
         A: item[1],
@@ -92,7 +92,7 @@ const Statistics = () => {
           ))}
         </select>
       </div>
-      {results.map((item, index) => {
+      {results?.map((item, index) => {
         const data = getResultsData(item);
         return (
           <div key={index} className="bg-white rounded-md py-4 shadow-md ">
@@ -114,7 +114,7 @@ const Statistics = () => {
           </div>
         );
       })}
-      {dailyResults.map((item) => {
+      {dailyResults?.map((item) => {
         return (
           <div
             key={item.emotion.value}
