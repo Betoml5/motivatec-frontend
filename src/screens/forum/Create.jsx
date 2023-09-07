@@ -10,7 +10,7 @@ import "react-quill/dist/quill.snow.css";
 
 const Create = () => {
   const navigate = useNavigate();
-  const { mutate } = useMutation((post) => createPostAPI(post), {
+  const { mutate, isLoading } = useMutation((post) => createPostAPI(post), {
     onSettled: (data, error) => {
       if (error) {
         toast.error("Error al crear los cambios");
@@ -66,8 +66,8 @@ const Create = () => {
                 </div>
               )}
             />
-            <button type="submit" className="btn my-0">
-              Crear post
+            <button disabled={isLoading} type="submit" className="btn my-0">
+              {isLoading ? "Creando..." : "Crear"}
             </button>
           </div>
         </div>

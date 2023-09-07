@@ -137,8 +137,8 @@ const PostDetails = () => {
             {errors.content && (
               <span className="text-red-500">Este campo es requerido</span>
             )}
-            <button className="btn">
-              {isCreatingComment ? "Enviando..." : "Crear comentario"}
+            <button disabled={isCreatingComment} className="btn">
+              {isCreatingComment ? "Creando comentario..." : "Crear comentario"}
             </button>
           </form>
         </Modal>
