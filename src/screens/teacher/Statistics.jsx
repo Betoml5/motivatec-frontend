@@ -53,11 +53,7 @@ const Statistics = () => {
     return data;
   };
 
-  if (
-    (isResultsLoading || isDailyLoading || isStudentsLoading,
-    isResultsLengthLoading)
-  )
-    return <Spinner />;
+  if (isResultsLoading || isDailyLoading) return <Spinner />;
   if (isResultsError && isDailyError)
     return <div className="p-4">Ocurrio un error inesperado</div>;
 
@@ -66,21 +62,12 @@ const Statistics = () => {
       <div className="flex flex-wrap gap-4 col-span-full">
         {/* <div className="px-6 py-8 rounded-md bg-white flex-grow  h-40 shadow-md ">
           <p className="font-semibold text-xl mb-6">Alumnos </p>
-<<<<<<< HEAD
-          <p className="text-3xl font-bold ">{students?.length}</p>
-        </div>
-        <div className="px-6 py-8 rounded-md bg-white flex-grow  h-40 shadow-md ">
-          <p className="font-semibold text-xl mb-6">Encuestas contestadas </p>
-          <p className="text-3xl font-bold ">{resultsLength?.length}</p>
-        </div>
-=======
           <p className="text-3xl font-bold ">{students.length}</p>
         </div> */}
         {/* <div className="px-6 py-8 rounded-md bg-white flex-grow  h-40 shadow-md ">
           <p className="font-semibold text-xl mb-6">Encuestas contestadas </p>
           <p className="text-3xl font-bold ">{resultsLength.length}</p>
         </div> */}
-        >>>>>>> develop
       </div>
       <div className="flex flex-col col-span-full max-w-md">
         <label htmlFor="group" className="label">
