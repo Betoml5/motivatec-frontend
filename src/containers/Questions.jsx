@@ -10,7 +10,6 @@ const Questions = ({ questions, repliedQuestions, onSelect, onSubmit }) => {
             {" "}
             La razón de la cuestión se corresponde con mi opinión personal.
           </p>
-
           <section className="flex flex-wrap   text-xs  gap-x-4 gap-y-2">
             {replyTypes.map((level) => (
               <div
@@ -26,6 +25,7 @@ const Questions = ({ questions, repliedQuestions, onSelect, onSubmit }) => {
           </section>
         </section>
       </section>
+      <h2 className="text-3xl">Yo voy al instituto porque...</h2>
       {questions.map((question) => (
         <div key={question.id}>
           {question.id}.- {question.question}

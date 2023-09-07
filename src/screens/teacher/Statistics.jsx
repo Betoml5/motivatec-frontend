@@ -15,10 +15,9 @@ import {
 } from "recharts";
 import { getDailyByMonthAPI, getResultsAPI } from "../../services/statistics";
 import { MOTIVATION_TYPES } from "../../utils/consts";
-import { getStudentsAPI } from "../../services/student";
-import { getTotalResultsAPI } from "../../services/result";
-import Spinner from "../../screens/loading/Spinner";
 import { useState } from "react";
+import { getStatisticByGroupAPI } from "../../services/strategy";
+import Spinner from "../../screens/loading/Spinner";
 import useGroups from "../../hooks/useGroup";
 
 const Statistics = () => {
@@ -29,14 +28,12 @@ const Statistics = () => {
     isError: isResultsError,
   } = useQuery(["results", filter], () => getResultsAPI({ group: filter }));
   const { groups } = useGroups();
-  const { data: resultsLength, isLoading: isResultsLengthLoading } = useQuery(
-    "resultsLength",
-    getTotalResultsAPI
+
+  const { data: strategy, isLoading: isStrategyLoading } = useQuery(
+    ["strategy", filter],
+    () => getStatisticByGroupAPI({ group: filter })
   );
-  const { data: students, isLoading: isStudentsLoading } = useQuery(
-    "students",
-    () => getStudentsAPI({ limit: 10000 })
-  );
+
   const {
     data: dailyResults,
     isLoading: isDailyLoading,
@@ -62,19 +59,28 @@ const Statistics = () => {
   )
     return <Spinner />;
   if (isResultsError && isDailyError)
-    return <div>Ocurrio un error inesperado</div>;
+    return <div className="p-4">Ocurrio un error inesperado</div>;
 
   return (
     <div className="grid grid-cols-1 auto-cols-fr gap-4 m-4 md:grid-cols-2 md:p-10 lg:grid-cols-3 ">
-      <div className="flex flex-wrap gap-4 mt-4 col-span-full">
-        <div className="px-6 py-8 rounded-md bg-white flex-grow  h-40 shadow-md ">
+      <div className="flex flex-wrap gap-4 col-span-full">
+        {/* <div className="px-6 py-8 rounded-md bg-white flex-grow  h-40 shadow-md ">
           <p className="font-semibold text-xl mb-6">Alumnos </p>
+<<<<<<< HEAD
           <p className="text-3xl font-bold ">{students?.length}</p>
         </div>
         <div className="px-6 py-8 rounded-md bg-white flex-grow  h-40 shadow-md ">
           <p className="font-semibold text-xl mb-6">Encuestas contestadas </p>
           <p className="text-3xl font-bold ">{resultsLength?.length}</p>
         </div>
+=======
+          <p className="text-3xl font-bold ">{students.length}</p>
+        </div> */}
+        {/* <div className="px-6 py-8 rounded-md bg-white flex-grow  h-40 shadow-md ">
+          <p className="font-semibold text-xl mb-6">Encuestas contestadas </p>
+          <p className="text-3xl font-bold ">{resultsLength.length}</p>
+        </div> */}
+        >>>>>>> develop
       </div>
       <div className="flex flex-col col-span-full max-w-md">
         <label htmlFor="group" className="label">
@@ -91,6 +97,17 @@ const Statistics = () => {
             </option>
           ))}
         </select>
+        {isStrategyLoading ? (
+          "Cargando estrategias..."
+        ) : (
+          <a
+            download
+            href={`/${strategy.strategy}.pdf`}
+            className="text-blue-500 underline self-start"
+          >
+            Descargar estrategia
+          </a>
+        )}
       </div>
       {results?.map((item, index) => {
         const data = getResultsData(item);
